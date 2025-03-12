@@ -1,0 +1,17 @@
+nav {
+  background-color: dimgray;
+  width: 200px;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.nav-btns {
+  padding: 10px;
+  border-radius: 50px;
+}
+
+.all-shows-button {
+  margin-top: 30px;
+}
