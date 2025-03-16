@@ -1,14 +1,15 @@
 import React from "react";
-import "./header.css";
+import "./Header.css";
 
-function Header() {
+const Header = ({ onHamburgerClick }) => {
   return (
-    <header>
-      <div>
-        <h1>Podcast App</h1>
-      </div>
+    <header className="header">
+      <h1>My Application</h1>
+      <button className="hamburger-button" onClick={onHamburgerClick}>
+        ☰ {/* Hamburger icon */}
+      </button>
     </header>
   );
-}
+};
 
 export default Header;

@@ -1,10 +1,34 @@
-header {
-  background-color: rgb(55, 55, 55);
-  width: 100vw;
+.header {
+  position: fixed; /* Fixed position */
+  top: 0;
+  left: 200px; /* Match navbar width */
+  height: 50px;
+  width: calc(100vw - 200px); /* Fill remaining space */
+  background-color: #f8f8f8;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 15px;
+  border-bottom: 1px solid #ddd; /*optional bottom border*/
+  box-sizing: border-box; /* Include padding/border in width */
 }
 
-h1 {
-  color: white;
+.header h1 {
+  font-size: 18px;
   margin: 0;
-  padding: 10px 0px 10px 10px;
+}
+
+.header .hamburger-button {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+/* responsive header width */
+@media (max-width: 600px) {
+  .header {
+    left: 150px;
+    width: calc(100vw - 150px);
+  }
 }

@@ -1,12 +1,17 @@
 import "./App.css";
 import Header from "./Header";
-import Navigation from "./Navigation";
+
+import MainBody from "./MainContent";
+import LeftNavBar from "./LeftNavBar";
 function App() {
   return (
-    <>
-      <Header />
-      <Navigation />
-    </>
+    <div className="app-container">
+      <LeftNavBar />
+      <div className="main-content-area">
+        <Header />
+        <MainBody />
+      </div>
+    </div>
   );
 }
 
