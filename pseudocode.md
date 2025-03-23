@@ -39,17 +39,15 @@
         ### - P3.9  User sees preview image of shows when browsing
         ### - P3.10 User sees the amount of seasons as a number in a show when browsing
         ### - P3.11 User sees a human-readable date to when a show was last updated
-        <span style="color:blue">
+
             Function timeFormat() {
                 method to conver the given time format to one that is user friendly.
             }
-            </span>
+
 
         ### - P3.12 User sees what genres (as genre titles) a show is associated with when browsing
 
         P3.4, P3.9, P3.10, P3.11, P3.12
-        <span style="color:blue">
-
         function displayPodcast() {
             will use try/catch to fetch main podcast data from API
             will call a fetchGenre() with podcast data from API
@@ -80,7 +78,7 @@
                         }
                         }
 
- </span>
+
 
         ### - P3.5  User sees shows sorted alphabetically when the app loads (default sorting)
 
@@ -111,6 +109,8 @@
                         genreMatch = true;
                     }
                     }
+            [https://www.w3schools.com/howto/howto_js_filter_lists.asp]
+            [https://www.youtube.com/watch?v=DfUHpQIjVsg]
 
 ## - Show modal
 
