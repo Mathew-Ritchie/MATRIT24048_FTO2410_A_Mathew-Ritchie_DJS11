@@ -1,3 +1,5 @@
+import { formatDate } from "./modules/utils.js";
+
 const mainContent = document.getElementById("main-content");
 const sortSelect = document.getElementById("select_zone");
 const genreSelect = document.getElementById("genre-select-zone");
@@ -145,24 +147,31 @@ async function displayShowEpisodes(showId) {
     sortSelect.style.display = "none";
     genreSelect.style.display = "none";
     searchInput.style.display = "none";
+
     const seasonBtnDiv = document.createElement("div");
     mainContent.appendChild(seasonBtnDiv);
+    const seasonContentDiv = document.createElement("div");
+    mainContent.appendChild(seasonContentDiv);
+    //season buttons
 
     showData.seasons.forEach((season, index) => {
       const seasonBtn = document.createElement("button");
       seasonBtn.innerHTML = `Season ${season.season} `;
       seasonBtnDiv.appendChild(seasonBtn);
 
+      //episodes
       const seasonDiv = document.createElement("div");
       seasonDiv.classList.add("season-episodes");
 
       season.episodes.forEach((episode) => {
         seasonDiv.innerHTML += `<p>Episode ${episode.episode}: ${episode.title}</p>`;
       });
-      mainContent.appendChild(seasonDiv);
 
       if (index !== 0) {
         seasonDiv.style.display = "none";
+      } else {
+        displaySeasonImage(season.image, seasonContentDiv);
+        seasonContentDiv.appendChild(seasonDiv);
       }
       seasonBtn.addEventListener("click", () => {
         const allSeasonDivs = document.querySelectorAll(".season-episodes");
@@ -170,6 +179,8 @@ async function displayShowEpisodes(showId) {
           div.style.display = "none";
         });
         seasonDiv.style.display = "block";
+        displaySeasonImage(season.image, seasonContentDiv);
+        seasonContentDiv.appendChild(seasonDiv);
       });
     });
   } catch (error) {
@@ -178,27 +189,17 @@ async function displayShowEpisodes(showId) {
   }
 }
 
-function formatDate(dateString) {
-  if (!dateString) {
-    return "Date un-available";
+function displaySeasonImage(imageUrl, contentDiv) {
+  const existingImage = contentDiv.querySelector("img");
+  if (existingImage) {
+    contentDiv.removeChild(existingImage);
   }
 
-  try {
-    const date = new Date(dateString); // JavaScript's Date object can parse ISO 8601
-
-    if (isNaN(date.getTime())) {
-      return "Date un-available"; // Handle invalid dates
-    }
-
-    const day = String(date.getDate()).padStart(2, "0");
-    const month = String(date.getMonth() + 1).padStart(2, "0");
-    const year = date.getFullYear();
-
-    return `${day}/${month}/${year}`;
-  } catch (error) {
-    return "Date un-available"; // Handle parsing errors
-  }
+  const seasonImg = document.createElement("img");
+  seasonImg.src = imageUrl;
+  contentDiv.appendChild(seasonImg);
 }
+
 sortSelect.addEventListener("change", sortAndRenderPodcasts);
 genreSelect.addEventListener("change", sortAndRenderPodcasts);
 searchInput.addEventListener("input", sortAndRenderPodcasts);
@@ -206,3 +207,9 @@ allShowsBtn.addEventListener("click", displayPodcasts);
 document.addEventListener("DOMContentLoaded", () => {
   displayPodcasts();
 });
+
+try {
+  const res = await fetch("https://podcast-api.netlify.app/id/6717");
+  const data = await res.json();
+  console.log(data);
+} catch (err) {}
