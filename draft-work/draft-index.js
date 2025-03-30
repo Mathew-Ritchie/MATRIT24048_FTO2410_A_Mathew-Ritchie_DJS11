@@ -2,6 +2,7 @@ const mainContent = document.getElementById("main-content");
 const sortSelect = document.getElementById("select_zone");
 const genreSelect = document.getElementById("genre-select-zone");
 const searchInput = document.getElementById("search-input");
+const allShowsBtn = document.getElementById("all-shows-btn");
 
 let podcastData = [];
 
@@ -15,6 +16,9 @@ async function displayPodcasts() {
     await fetchAndCacheGenres(podcastData); //added function to clean up code.
     sortAndRenderPodcasts();
     populateGenreDropDown();
+    sortSelect.style.display = "block";
+    genreSelect.style.display = "block";
+    searchInput.style.display = "block";
   } catch (error) {
     console.log("error fetching or displaying podcasts", error);
     mainContent.innerHTML = "<p>Failed to load podcasts.</p>";
@@ -119,6 +123,7 @@ function sortAndRenderPodcasts() {
         </div>
         `;
 
+        podcastDiv.addEventListener("click", () => displayShowEpisodes(show.id));
         mainContent.appendChild(podcastDiv);
       } catch (error) {
         console.error("Error displaying podcast:", error);
@@ -128,6 +133,48 @@ function sortAndRenderPodcasts() {
       }
     });
     await Promise.all(podcastPromises);
+  }
+}
+
+async function displayShowEpisodes(showId) {
+  mainContent.innerHTML = "<p>Loading Episodes...</p>";
+  try {
+    const res = await fetch(`https://podcast-api.netlify.app/id/${showId}`);
+    const showData = await res.json();
+    mainContent.innerHTML = "";
+    sortSelect.style.display = "none";
+    genreSelect.style.display = "none";
+    searchInput.style.display = "none";
+    const seasonBtnDiv = document.createElement("div");
+    mainContent.appendChild(seasonBtnDiv);
+
+    showData.seasons.forEach((season, index) => {
+      const seasonBtn = document.createElement("button");
+      seasonBtn.innerHTML = `Season ${season.season} `;
+      seasonBtnDiv.appendChild(seasonBtn);
+
+      const seasonDiv = document.createElement("div");
+      seasonDiv.classList.add("season-episodes");
+
+      season.episodes.forEach((episode) => {
+        seasonDiv.innerHTML += `<p>Episode ${episode.episode}: ${episode.title}</p>`;
+      });
+      mainContent.appendChild(seasonDiv);
+
+      if (index !== 0) {
+        seasonDiv.style.display = "none";
+      }
+      seasonBtn.addEventListener("click", () => {
+        const allSeasonDivs = document.querySelectorAll(".season-episodes");
+        allSeasonDivs.forEach((div) => {
+          div.style.display = "none";
+        });
+        seasonDiv.style.display = "block";
+      });
+    });
+  } catch (error) {
+    console.error("error fetching episodes", error);
+    mainContent.innerHTML = "<p>Failed to load episodes.<p>";
   }
 }
 
@@ -155,4 +202,7 @@ function formatDate(dateString) {
 sortSelect.addEventListener("change", sortAndRenderPodcasts);
 genreSelect.addEventListener("change", sortAndRenderPodcasts);
 searchInput.addEventListener("input", sortAndRenderPodcasts);
-document.addEventListener("DOMContentLoaded", displayPodcasts);
+allShowsBtn.addEventListener("click", displayPodcasts);
+document.addEventListener("DOMContentLoaded", () => {
+  displayPodcasts();
+});
