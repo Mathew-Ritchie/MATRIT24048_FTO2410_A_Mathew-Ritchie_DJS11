@@ -1,15 +1,21 @@
 import { formatDate } from "./modules/utils.js";
 
+document.addEventListener("DOMContentLoaded", () => {
+  displayPodcasts();
+});
+
 const mainContent = document.getElementById("main-content");
 const sortSelect = document.getElementById("select_zone");
-const genreSelect = document.getElementById("genre-select-zone");
+//const genreSelect = document.getElementById("genre-select-zone");
 const searchInput = document.getElementById("search-input");
-const allShowsBtn = document.getElementById("all-shows-btn");
+//const allShowsBtn = document.getElementById("all-shows-btn");
 const leftNavBar = document.getElementById("left-nav-bar");
+const genreDropdown = document.querySelector("genre-dropdown");
 
 let podcastData = [];
 
 async function displayPodcasts() {
+  mainContent.innerHTML = "";
   try {
     mainContent.innerHTML = "<p>Loading...</p>";
     const res = await fetch("https://podcast-api.netlify.app");
@@ -17,11 +23,10 @@ async function displayPodcasts() {
     //console.log(data);
     mainContent.innerHTML = "";
     await fetchAndCacheGenres(podcastData); //added function to clean up code.
-    sortAndRenderPodcasts();
-    populateGenreDropDown();
     sortSelect.style.display = "block";
-    genreSelect.style.display = "block";
+    //genreSelect.style.display = "block";
     searchInput.style.display = "block";
+    sortAndRenderPodcasts();
   } catch (error) {
     console.log("error fetching or displaying podcasts", error);
     mainContent.innerHTML = "<p>Failed to load podcasts.</p>";
@@ -46,7 +51,6 @@ async function getGenre(genreId) {
     return "Unknown Genre"; // Return a default if fetch fails
   }
 }
-
 async function fetchAndCacheGenres(podcastData) {
   const uniqueGenreIds = new Set();
   podcastData.forEach((show) => {
@@ -55,26 +59,12 @@ async function fetchAndCacheGenres(podcastData) {
   await Promise.all(Array.from(uniqueGenreIds).map(getGenre));
 }
 
-//populate genre select ////
-function populateGenreDropDown() {
-  const genreDropDown = document.getElementById("genre-select-zone");
-  genreDropDown.innerHTML = '<option value="">All Genres</option>'; // Add default option
-
-  for (const genreId in genreMap) {
-    const genreTitle = genreMap[genreId];
-    const genreOption = document.createElement("option");
-    genreOption.value = genreId;
-    genreOption.textContent = genreTitle;
-    genreDropDown.appendChild(genreOption);
-  }
-}
-
 const genreArray = Object.entries(genreMap);
 console.log(genreArray);
 
 function sortAndRenderPodcasts() {
   const sortOption = sortSelect.value;
-  const genreOption = genreSelect.value;
+  const genreOption = genreDropdown.shadowRoot.getElementById("genre-select-zone").value;
   const searchInputValue = searchInput.value.toLowerCase();
 
   let filteredData = [...podcastData];
@@ -107,7 +97,6 @@ function sortAndRenderPodcasts() {
       break;
   }
 
-  renderPodcastList(sortedData);
   async function renderPodcastList(data) {
     mainContent.innerHTML = "";
     const podcastPromises = data.map(async (show) => {
@@ -126,7 +115,11 @@ function sortAndRenderPodcasts() {
         </div>
         `;
 
-        podcastDiv.addEventListener("click", () => displayShowEpisodes(show.id));
+        podcastDiv.addEventListener("click", (event) => {
+          event.stopPropagation();
+
+          displayShowEpisodes(show.id);
+        });
         mainContent.appendChild(podcastDiv);
       } catch (error) {
         console.error("Error displaying podcast:", error);
@@ -137,16 +130,18 @@ function sortAndRenderPodcasts() {
     });
     await Promise.all(podcastPromises);
   }
+  renderPodcastList(sortedData);
 }
 
 async function displayShowEpisodes(showId) {
+  mainContent.innerHTML = "";
   mainContent.innerHTML = "<p>Loading Episodes...</p>";
   try {
     const res = await fetch(`https://podcast-api.netlify.app/id/${showId}`);
     const showData = await res.json();
     mainContent.innerHTML = "";
     sortSelect.style.display = "none";
-    genreSelect.style.display = "none";
+    //genreSelect.style.display = "none";
     searchInput.style.display = "none";
 
     const seasonBtnDiv = document.createElement("div");
@@ -202,18 +197,20 @@ function displaySeasonImage(imageUrl, contentDiv) {
 }
 
 sortSelect.addEventListener("change", sortAndRenderPodcasts);
-genreSelect.addEventListener("change", sortAndRenderPodcasts);
+
+// genreSelect.addEventListener("change", sortAndRenderPodcasts);
+
+genreDropdown.addEventListener("genreDropdownPopulated", () => {
+  sortAndRenderPodcasts();
+});
+
+genreDropdown.addEventListener("genreSelected", (event) => {
+  sortAndRenderPodcasts();
+});
+
 searchInput.addEventListener("input", sortAndRenderPodcasts);
+
 leftNavBar.addEventListener("allShowsClick", () => {
   console.log("All Shows button clicked from the component!");
   displayPodcasts();
 });
-document.addEventListener("DOMContentLoaded", () => {
-  displayPodcasts();
-});
-
-try {
-  const res = await fetch("https://podcast-api.netlify.app/id/6717");
-  const data = await res.json();
-  console.log(data);
-} catch (err) {}
