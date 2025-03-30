@@ -8,10 +8,11 @@
   </head>
   <body>
     <div class="app-container">
-      <nav class="left-nav-bar">
+      <!-- <nav class="left-nav-bar">
         <button class="nav-button" id="all-shows-btn">All Shows</button>
         <button class="nav-button" id="button2">Favourites</button>
-      </nav>
+      </nav> -->
+      <left-nav-bar id="left-nav-bar"></left-nav-bar>
       <div class="main-content-area" id="main-container-area">
         <header class="header">
           <h1>My Application</h1>
@@ -30,6 +31,7 @@
     </div>
     <dialog class="show-modal" id="show-modal"></dialog>
 
-    <script type="module" src="./draft-index.js"></script>
+    <script type="module" src="./draft-index.js" defer></script>
+    <script type="module" src="../Components/left-nav-bar.js" defer></script>
   </body>
 </html>

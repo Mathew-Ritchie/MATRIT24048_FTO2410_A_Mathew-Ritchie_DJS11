@@ -5,6 +5,7 @@ const sortSelect = document.getElementById("select_zone");
 const genreSelect = document.getElementById("genre-select-zone");
 const searchInput = document.getElementById("search-input");
 const allShowsBtn = document.getElementById("all-shows-btn");
+const leftNavBar = document.getElementById("left-nav-bar");
 
 let podcastData = [];
 
@@ -203,7 +204,10 @@ function displaySeasonImage(imageUrl, contentDiv) {
 sortSelect.addEventListener("change", sortAndRenderPodcasts);
 genreSelect.addEventListener("change", sortAndRenderPodcasts);
 searchInput.addEventListener("input", sortAndRenderPodcasts);
-allShowsBtn.addEventListener("click", displayPodcasts);
+leftNavBar.addEventListener("allShowsClick", () => {
+  console.log("All Shows button clicked from the component!");
+  displayPodcasts();
+});
 document.addEventListener("DOMContentLoaded", () => {
   displayPodcasts();
 });
