@@ -1,6 +1,7 @@
 const mainContent = document.getElementById("main-content");
 const sortSelect = document.getElementById("select_zone");
 const genreSelect = document.getElementById("genre-select-zone");
+const searchInput = document.getElementById("search-input");
 
 let podcastData = [];
 
@@ -67,10 +68,18 @@ console.log(genreArray);
 function sortAndRenderPodcasts() {
   const sortOption = sortSelect.value;
   const genreOption = genreSelect.value;
+  const searchInputValue = searchInput.value.toLowerCase();
+
   let filteredData = [...podcastData];
 
   if (genreOption && genreOption !== "") {
     filteredData = filteredData.filter((show) => show.genres.includes(parseInt(genreOption)));
+  }
+
+  if (searchInputValue) {
+    filteredData = filteredData.filter((show) =>
+      show.title.toLowerCase().includes(searchInputValue)
+    );
   }
 
   let sortedData = [...filteredData]; // Create a copy to avoid modifying the original
@@ -144,5 +153,6 @@ function formatDate(dateString) {
   }
 }
 sortSelect.addEventListener("change", sortAndRenderPodcasts);
-document.addEventListener("DOMContentLoaded", displayPodcasts);
 genreSelect.addEventListener("change", sortAndRenderPodcasts);
+searchInput.addEventListener("input", sortAndRenderPodcasts);
+document.addEventListener("DOMContentLoaded", displayPodcasts);
