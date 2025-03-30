@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="draft-styles.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="app-container">
+      <nav class="left-nav-bar">
+        <button class="nav-button" id="button1">Button 1</button>
+        <button class="nav-button" id="button2">Button 2</button>
+      </nav>
+      <div class="main-content-area" id="main-container-area">
+        <header class="header">
+          <h1>My Application</h1>
+          <input id="search-input" type="text" placeholder="seach for show" />
+          <select id="genre-select-zone"></select>
+          <select id="select_zone">
+            <option value="A-Z">A-Z</option>
+            <option value="Z-A">Z-A</option>
+            <option value="Newest update">Newest update</option>
+            <option value="Oldest update">Oldest update</option>
+          </select>
+          <button class="hamburger-button" id="hamburger">☰</button>
+        </header>
+        <main class="main-content" id="main-content"></main>
+      </div>
+    </div>
+    <script type="module" src="./draft-index.js"></script>
+  </body>
+</html>

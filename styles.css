@@ -1,0 +1,125 @@
+.app-container {
+  display: flex;
+}
+
+.main-content-area {
+  width: calc(100vw - 200px);
+  margin-left: 200px;
+}
+
+.main-content {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  padding-top: 100px;
+  padding: 20px;
+  margin-top: 50px;
+}
+
+.left-nav-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 200px;
+  background-color: #f0f0f0;
+  display: flex;
+  flex-direction: column;
+  padding: 20px 0;
+  box-sizing: border-box;
+  border-right: 1px solid #ddd;
+}
+
+.left-nav-bar .nav-item {
+  padding: 10px 15px;
+  text-decoration: none;
+  color: #333;
+  transition: background-color 0.3s ease;
+}
+
+.left-nav-bar .nav-item:hover {
+  background-color: #e0e0e0;
+}
+
+.left-nav-bar .nav-item.active {
+  background-color: #d0d0d0;
+}
+
+.left-nav-bar .nav-button {
+  padding: 10px 15px;
+  margin-top: 10px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.left-nav-bar .nav-button:hover {
+  background-color: #3e8e41;
+}
+
+.header {
+  position: fixed;
+  top: 0;
+  left: 200px;
+  height: 50px;
+  width: calc(100vw - 200px);
+  background-color: #f8f8f8;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 15px;
+  border-bottom: 1px solid #ddd;
+  box-sizing: border-box;
+}
+
+.header h1 {
+  font-size: 18px;
+  margin: 0;
+}
+
+.header .hamburger-button {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+@media (max-width: 600px) {
+  .main-content-area {
+    width: calc(100vw - 150px);
+    margin-left: 150px;
+  }
+
+  .header {
+    left: 150px;
+    width: calc(100vw - 150px);
+  }
+
+  .left-nav-bar {
+    width: 150px;
+  }
+}
+
+.podcast-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border: 1px solid #ccc;
+  padding: 10px;
+  /* margin-bottom: 10px; */
+
+  width: 350px;
+  vertical-align: top;
+}
+
+.podcast-item img {
+  max-width: 150px;
+  height: 150px;
+}
