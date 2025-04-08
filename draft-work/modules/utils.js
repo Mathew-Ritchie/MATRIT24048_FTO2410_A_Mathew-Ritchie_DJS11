@@ -1,4 +1,5 @@
 export function formatDate(dateString) {
+
   if (!dateString) {
     return "Date un-available";
   }
