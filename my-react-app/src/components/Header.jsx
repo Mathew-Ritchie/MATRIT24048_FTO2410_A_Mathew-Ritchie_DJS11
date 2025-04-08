@@ -3,10 +3,18 @@ import "./Header.css";
 
 const Header = ({ onHamburgerClick }) => {
   return (
-    <header className="header">
+    <header class="header">
       <h1>My Application</h1>
-      <button className="hamburger-button" onClick={onHamburgerClick}>
-        ☰ {/* Hamburger icon */}
+      <input id="search-input" type="text" placeholder="seach for show" />
+      <genre-dropdown></genre-dropdown>
+      <select id="select_zone">
+        <option value="A-Z">A-Z</option>
+        <option value="Z-A">Z-A</option>
+        <option value="Newest update">Newest update</option>
+        <option value="Oldest update">Oldest update</option>
+      </select>
+      <button class="hamburger-button" id="hamburger">
+        ☰
       </button>
     </header>
   );

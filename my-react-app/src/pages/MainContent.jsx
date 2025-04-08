@@ -41,6 +41,7 @@ export default function MainPodcastView() {
   console.log(podcastsToRender);
   return (
     <main className="main-content">
+      {loading && <p>Loading podcasts...</p>}
       {podcastsToRender.map((show) => (
         <div key={show.id} className="podcast-item" onClick={() => displayShowEpisodes(show.id)}>
           <img src={show.image} alt={show.title} className="show-img" />
