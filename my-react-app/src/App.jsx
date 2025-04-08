@@ -1,21 +1,15 @@
 import React from "react";
 import { ReactDOM } from "react-dom/client";
-import { BrowserRouter } from "react-router";
+import { BrowserRouter, Routes, Route } from "react-router";
 import "./App.css";
-import Header from "./Header";
+import Layout from "./components/Layout";
 
-import MainBody from "./MainContent";
-import LeftNavBar from "./LeftNavBar";
 function App() {
   return (
     <BrowserRouter>
-      <div className="app-container">
-        <LeftNavBar />
-        <div className="main-content-area">
-          <Header />
-          <MainBody />
-        </div>
-      </div>
+      <Routes>
+        <Route path="/" element={<Layout />} />
+      </Routes>
     </BrowserRouter>
   );
 }
