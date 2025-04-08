@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { formatDate } from "../utils/utils";
+// import { formatDate } from "../utils/utils";
 
 /**
  * Zustand store for podcast data and managing UI state
@@ -69,7 +69,12 @@ const usePodcastStore = create((set, get) => ({
   fetchAndCacheGenres: async (podcastData) => {
     const uniqueGenreIds = new Set();
     podcastData.forEach((show) => {
-      show.genres.foreach((genreId) => uniqueGenreIds.add(genreId));
+      if (Array.isArray(show.genres)) {
+        // Add this check
+        show.genres.forEach((genreId) => uniqueGenreIds.add(genreId));
+      } else {
+        console.warn(`Podcast with ID ${show.id} has invalid genres:`, show.genres);
+      }
     });
     await Promise.all(
       Array.from(uniqueGenreIds).map(async (genreId) => {
@@ -135,38 +140,47 @@ const usePodcastStore = create((set, get) => ({
    * @returns {Array<object>}
    */
   getFilteredAndSortedPodcasts: () => {
-    let filteredData = [...get().podcastData];
+    return new Promise(async (resolve) => {
+      let filteredData = [...get().podcastData];
 
-    if (get().genreOption && get().genreOption !== "") {
-      filteredData = filteredData.filter((show) =>
-        show.genres.includes(parseInt(get().genreOption))
+      if (get().genreOption && get().genreOption !== "") {
+        filteredData = filteredData.filter((show) =>
+          show.genres.includes(parseInt(get().genreOption))
+        );
+      }
+
+      if (get().searchInputValue) {
+        filteredData = filteredData.filter((show) =>
+          show.title.toLowerCase().includes(get().searchInputValue.toLowerCase())
+        );
+      }
+
+      const podcastsWithNames = await Promise.all(
+        filteredData.map(async (show) => ({
+          ...show,
+          genreNames: await Promise.all(show.genres.map(get().getGenre)),
+        }))
       );
-    }
 
-    if (get().searchInputValue) {
-      filteredData = filteredData.filter((show) =>
-        show.title.toLowerCase().includes(get().searchInputValue.toLowerCase())
-      );
-    }
-
-    let sortedData = [...filteredData];
-    switch (get().sortOption) {
-      case "A-Z":
-        sortedData.sort((a, b) => a.title.localeCompare(b.title));
-        break;
-      case "Z-A":
-        sortedData.sort((a, b) => b.title.localeCompare(a.title));
-        break;
-      case "Newest update":
-        sortedData.sort((a, b) => new Date(b.updated) - new Date(a.updated));
-        break;
-      case "Oldest update":
-        sortedData.sort((a, b) => new Date(a.updated) - new Date(b.updated));
-        break;
-      default:
-        break;
-    }
-    return sortedData;
+      let sortedData = [...podcastsWithNames];
+      switch (get().sortOption) {
+        case "A-Z":
+          sortedData.sort((a, b) => a.title.localeCompare(b.title));
+          break;
+        case "Z-A":
+          sortedData.sort((a, b) => b.title.localeCompare(a.title));
+          break;
+        case "Newest update":
+          sortedData.sort((a, b) => new Date(b.updated) - new Date(a.updated));
+          break;
+        case "Oldest update":
+          sortedData.sort((a, b) => new Date(a.updated) - new Date(b.updated));
+          break;
+        default:
+          break;
+      }
+      resolve(sortedData);
+    });
   },
 
   /**
