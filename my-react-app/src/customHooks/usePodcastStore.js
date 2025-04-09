@@ -40,6 +40,11 @@ const usePodcastStore = create((set, get) => ({
    * @type {string|null}
    */
   error: null,
+  /**
+   * state to hold single shows details.
+   * @type {object|null}
+   */
+  showData: null,
 
   /**
    * fetches podcast data from API and updates the store.
