@@ -14,20 +14,19 @@ export default function MainPodcastView() {
     getFilteredAndSortedPodcasts,
     displayShowEpisodes,
     GenreOption,
+    sortOption,
+    searchInputValue,
   } = usePodcastStore();
-
-  // console.log(podcastData);
 
   const [podcastsToRender, setPodcastsToRender] = useState([]);
 
   useEffect(() => {
-    fetchPodcasts().then(() => console.log("Podcast Data:", podcastData));
+    fetchPodcasts();
   }, [fetchPodcasts]);
 
   useEffect(() => {
-    //console.log("MainPodcastView - GenreOption:", GenreOption);
     getFilteredAndSortedPodcasts().then(setPodcastsToRender);
-  }, [getFilteredAndSortedPodcasts, podcastData, GenreOption]);
+  }, [getFilteredAndSortedPodcasts, podcastData, GenreOption, searchInputValue, sortOption]);
 
   return (
     <main className="main-content">

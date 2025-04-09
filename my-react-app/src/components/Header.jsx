@@ -37,12 +37,3 @@ const Header = ({ onHamburgerClick }) => {
 };
 
 export default Header;
-
-// import usePodcastStore from "../customHooks/usePodcastStore";
-
-// export default function GenreDropDown() {
-//   const { GenreOption, setGenreOption, genreMap } = usePodcastStore();
-
-//   const handleGenreChange = (event) => {
-//     setGenreOption(event.target.value);
-//   };

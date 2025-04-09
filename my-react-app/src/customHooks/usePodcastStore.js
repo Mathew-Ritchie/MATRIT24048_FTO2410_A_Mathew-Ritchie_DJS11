@@ -142,18 +142,13 @@ const usePodcastStore = create((set, get) => ({
   getFilteredAndSortedPodcasts: () => {
     return new Promise(async (resolve) => {
       let filteredData = [...get().podcastData];
-      //console.log("Initial filteredData:", filteredData);
 
       if (get().GenreOption && get().GenreOption !== "") {
         const selectedGenreId = parseInt(get().GenreOption);
-        //console.log("Filtering by Genre ID:", selectedGenreId);
 
-        filteredData.forEach((show) => {
-          // console.log(`Show "${show.title}" Genres:`, show.genres); // Log the genres array
-        });
+        filteredData.forEach((show) => {});
 
         filteredData = filteredData.filter((show) => show.genres.includes(selectedGenreId));
-        //console.log("filteredData after genre filter:", filteredData);
       }
 
       if (get().searchInputValue) {
