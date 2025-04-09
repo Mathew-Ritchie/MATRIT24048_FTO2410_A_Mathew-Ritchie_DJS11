@@ -4,7 +4,6 @@ import usePodcastStore from "../customHooks/usePodcastStore";
 import { formatDate } from "../../../draft-work/modules/utils";
 import "./MainContent.css";
 import CircularProgress from "@mui/material/CircularProgress";
-import GenreDropDown from "../components/GenreDropDown";
 
 export default function MainPodcastView() {
   const {
@@ -13,7 +12,6 @@ export default function MainPodcastView() {
     error,
     fetchPodcasts,
     getFilteredAndSortedPodcasts,
-    getGenre,
     displayShowEpisodes,
     GenreOption,
   } = usePodcastStore();
