@@ -1,14 +1,29 @@
 import React from "react";
 import "./Header.css";
 import GenreDropDown from "./GenreDropDown";
+import usePodcastStore from "../customHooks/usePodcastStore";
 
 const Header = ({ onHamburgerClick }) => {
+  const { setSortOption, setSearchInputValue } = usePodcastStore();
+
+  const handleInputChange = (event) => {
+    setSearchInputValue(event.target.value);
+  };
+
+  const handleSortChange = (event) => {
+    setSortOption(event.target.value);
+  };
   return (
     <header className="header">
       <h1>My Application</h1>
-      <input id="search-input" type="text" placeholder="seach for show" />
+      <input
+        id="search-input"
+        type="text"
+        placeholder="seach for show"
+        onChange={handleInputChange}
+      />
       <GenreDropDown />
-      <select id="select_zone">
+      <select id="select_zone" onChange={handleSortChange}>
         <option value="A-Z">A-Z</option>
         <option value="Z-A">Z-A</option>
         <option value="Newest update">Newest update</option>
@@ -22,3 +37,12 @@ const Header = ({ onHamburgerClick }) => {
 };
 
 export default Header;
+
+// import usePodcastStore from "../customHooks/usePodcastStore";
+
+// export default function GenreDropDown() {
+//   const { GenreOption, setGenreOption, genreMap } = usePodcastStore();
+
+//   const handleGenreChange = (event) => {
+//     setGenreOption(event.target.value);
+//   };
