@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import usePodcastStore from "../customHooks/usePodcastStore";
 import { formatDate } from "../../../draft-work/modules/utils";
 import "./MainContent.css";
+import CircularProgress from "@mui/material/CircularProgress";
 
 export default function MainPodcastView() {
   const {
@@ -27,29 +28,20 @@ export default function MainPodcastView() {
     getFilteredAndSortedPodcasts().then(setPodcastsToRender);
   }, [getFilteredAndSortedPodcasts, podcastData]);
 
-  if (loading) {
-    return <p>Loading podcasts...</p>;
-  }
-
-  if (error) {
-    return <p>Error loading podcasts: {error}</p>;
-  }
-
-  if (!podcastsToRender || podcastsToRender.length === 0) {
-    return <p>No podcasts found.</p>;
-  }
-  console.log(podcastsToRender);
   return (
     <main className="main-content">
-      {loading && <p>Loading podcasts...</p>}
+      {loading && <div className="status-circle">{<CircularProgress size="3rem" />}</div>}
+      {error && <p>Error loading podcasts: {error}</p>}
       {podcastsToRender.map((show) => (
         <div key={show.id} className="podcast-item" onClick={() => displayShowEpisodes(show.id)}>
-          <img src={show.image} alt={show.title} className="show-img" />
-          <div id="show-info-div">
-            <h2>{show.title}</h2>
-            <p>Season: {show.seasons}</p>
-            <p>Genres: {show.genreNames && show.genreNames.join(", ")}</p>
-            <p>Updated: {formatDate(show.updated)}</p>
+          <h2 className="show-title">{show.title}</h2>
+          <div className="show-info-wrapper">
+            <img src={show.image} alt={show.title} className="show-img" />
+            <div id="show-info-div" className="show-info-div">
+              <p>Season: {show.seasons}</p>
+              <p>Genres: {show.genreNames && show.genreNames.join(", ")}</p>
+              <p>Updated: {formatDate(show.updated)}</p>
+            </div>
           </div>
         </div>
       ))}

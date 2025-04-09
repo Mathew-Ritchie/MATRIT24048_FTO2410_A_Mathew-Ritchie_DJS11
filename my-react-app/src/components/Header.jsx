@@ -3,7 +3,7 @@ import "./Header.css";
 
 const Header = ({ onHamburgerClick }) => {
   return (
-    <header class="header">
+    <header className="header">
       <h1>My Application</h1>
       <input id="search-input" type="text" placeholder="seach for show" />
       <genre-dropdown></genre-dropdown>
@@ -13,7 +13,7 @@ const Header = ({ onHamburgerClick }) => {
         <option value="Newest update">Newest update</option>
         <option value="Oldest update">Oldest update</option>
       </select>
-      <button class="hamburger-button" id="hamburger">
+      <button className="hamburger-button" id="hamburger">
         ☰
       </button>
     </header>

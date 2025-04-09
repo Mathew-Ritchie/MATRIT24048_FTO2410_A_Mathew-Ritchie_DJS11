@@ -3,6 +3,7 @@
   margin: 50px 0px 0px 200px; /* Match header height */
   padding: 20px;
   width: auto;
+  /* height: 100vh; */
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
@@ -12,10 +13,44 @@
 .podcast-item {
   width: 300px;
   display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  /* border: 3px solid, red; */
+  padding: 20px;
+  box-shadow: 2px 2px 6px 0px black;
+}
+
+.show-title {
+  margin: 0;
+  /* padding-top: 10px; */
+}
+
+.show-info-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   gap: 10px;
 }
 
 .show-img {
-  width: 150px;
-  height: 150px;
+  width: 100px;
+  height: 100px;
+}
+
+.show-info-div > p {
+  margin-top: 5px;
+  margin-bottom: 0;
+}
+
+.status-circle {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 50%;
+  left: 60%;
+  /* display: flex;
+  justify-content: start;
+  align-items: start; */
 }
