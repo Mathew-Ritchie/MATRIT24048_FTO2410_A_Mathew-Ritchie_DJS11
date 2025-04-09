@@ -4,6 +4,7 @@ import usePodcastStore from "../customHooks/usePodcastStore";
 import { formatDate } from "../../../draft-work/modules/utils";
 import "./MainContent.css";
 import CircularProgress from "@mui/material/CircularProgress";
+import GenreDropDown from "../components/GenreDropDown";
 
 export default function MainPodcastView() {
   const {
@@ -14,6 +15,7 @@ export default function MainPodcastView() {
     getFilteredAndSortedPodcasts,
     getGenre,
     displayShowEpisodes,
+    GenreOption,
   } = usePodcastStore();
 
   // console.log(podcastData);
@@ -21,12 +23,13 @@ export default function MainPodcastView() {
   const [podcastsToRender, setPodcastsToRender] = useState([]);
 
   useEffect(() => {
-    fetchPodcasts();
+    fetchPodcasts().then(() => console.log("Podcast Data:", podcastData));
   }, [fetchPodcasts]);
 
   useEffect(() => {
+    //console.log("MainPodcastView - GenreOption:", GenreOption);
     getFilteredAndSortedPodcasts().then(setPodcastsToRender);
-  }, [getFilteredAndSortedPodcasts, podcastData]);
+  }, [getFilteredAndSortedPodcasts, podcastData, GenreOption]);
 
   return (
     <main className="main-content">

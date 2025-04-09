@@ -1,22 +1,24 @@
-import React from "react";
 import { useEffect, useState } from "react";
+import React from "react";
 import usePodcastStore from "../customHooks/usePodcastStore";
 
-export default const GenreDropDown() {
-    const {
-    podcastData,
-    loading,
-    error,
-    fetchPodcasts,
-    sortOption,
-    setSortOption,
-    GenreOption,
-    setGenreOption,
-    searchInputValue,
-    setSearchInputValue,
-    getFilteredAndSortedPodcasts,
-  } = usePodcastStore();
-    }
+export default function GenreDropDown() {
+  const { GenreOption, setGenreOption, genreMap } = usePodcastStore();
 
-    const [filteredAndSortedPodcasts, setFilteredAndSortedPodcasts] =useState([])
+  const handleGenreChange = (event) => {
+    setGenreOption(event.target.value);
+  };
+
+  return (
+    <div>
+      <select id="genre" value={GenreOption} onChange={handleGenreChange}>
+        <option value="">All Genres</option>
+        {Object.entries(genreMap).map(([genreId, genreName]) => (
+          <option key={genreId} value={genreId}>
+            {genreName}
+          </option>
+        ))}
+      </select>
+    </div>
+  );
 }

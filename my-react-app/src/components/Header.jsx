@@ -1,12 +1,13 @@
 import React from "react";
 import "./Header.css";
+import GenreDropDown from "./GenreDropDown";
 
 const Header = ({ onHamburgerClick }) => {
   return (
     <header className="header">
       <h1>My Application</h1>
       <input id="search-input" type="text" placeholder="seach for show" />
-      <genre-dropdown></genre-dropdown>
+      <GenreDropDown />
       <select id="select_zone">
         <option value="A-Z">A-Z</option>
         <option value="Z-A">Z-A</option>

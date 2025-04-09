@@ -128,7 +128,7 @@ const usePodcastStore = create((set, get) => ({
    * sets genre option
    * @param {string} option
    */
-  setGenreOption: (option) => set({ genreOption: option }),
+  setGenreOption: (option) => set({ GenreOption: option }),
   /**
    * sets input option
    * @param {*} value
@@ -142,11 +142,18 @@ const usePodcastStore = create((set, get) => ({
   getFilteredAndSortedPodcasts: () => {
     return new Promise(async (resolve) => {
       let filteredData = [...get().podcastData];
+      //console.log("Initial filteredData:", filteredData);
 
-      if (get().genreOption && get().genreOption !== "") {
-        filteredData = filteredData.filter((show) =>
-          show.genres.includes(parseInt(get().genreOption))
-        );
+      if (get().GenreOption && get().GenreOption !== "") {
+        const selectedGenreId = parseInt(get().GenreOption);
+        //console.log("Filtering by Genre ID:", selectedGenreId);
+
+        filteredData.forEach((show) => {
+          // console.log(`Show "${show.title}" Genres:`, show.genres); // Log the genres array
+        });
+
+        filteredData = filteredData.filter((show) => show.genres.includes(selectedGenreId));
+        //console.log("filteredData after genre filter:", filteredData);
       }
 
       if (get().searchInputValue) {
