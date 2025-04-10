@@ -17,6 +17,7 @@ export default function SeasonDetailPage() {
 
   return (
     <div className="season-detail-page">
+      {!showData || !showData.seasons ? <CircularProgress size="3rem" /> : ""}
       {loading && <div className="status-circle">{<CircularProgress size="3rem" />}</div>}
       {error && <p className="error-message">Error loading details: {error}</p>}
       <h2>Season {currentSeason.season} Episodes</h2>
