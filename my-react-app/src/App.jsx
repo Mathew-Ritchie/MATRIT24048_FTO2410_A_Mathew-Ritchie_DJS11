@@ -6,6 +6,7 @@ import Layout from "./components/Layout";
 import MainContent from "./pages/MainContent";
 import IndividualShowPage from "./pages/IndividualShowPage.jsx";
 import SeasonDetailPage from "./pages/SeasonDetailPage.jsx";
+import FavouritesPage from "./pages/FavouritesPage.jsx";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<MainContent />} />
+          <Route path="favourites" element={<FavouritesPage />} />
           <Route path="show/:id" element={<IndividualShowPage />}>
             <Route path=":seasonNumber" element={<SeasonDetailPage />} />
           </Route>

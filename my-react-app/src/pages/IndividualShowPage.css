@@ -5,6 +5,11 @@
   width: auto;
 }
 
+.img-description-vid {
+  display: flex;
+  gap: 20px;
+}
+
 img {
-  width: 100px;
+  width: 200px;
 }

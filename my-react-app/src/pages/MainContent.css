@@ -20,15 +20,21 @@
 }
 
 .podcast-item {
-  width: 300px;
+  width: 350px;
+  height: 180px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  justify-content: start;
+  align-items: start;
   gap: 10px;
   /* border: 3px solid, red; */
   padding: 20px;
   box-shadow: 2px 2px 6px 0px black;
+  color: black;
+}
+
+.show-link {
+  text-decoration: none;
 }
 
 .show-title {

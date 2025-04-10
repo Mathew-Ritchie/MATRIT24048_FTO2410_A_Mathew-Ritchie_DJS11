@@ -37,7 +37,7 @@ export default function MainPodcastView() {
       <SortingHeader />
       <div className="show-wrapper">
         {podcastsToRender.map((show) => (
-          <Link key={show.id} to={`/show/${show.id}`}>
+          <Link key={show.id} to={`/show/${show.id}`} className="show-link">
             <div
               key={show.id}
               className="podcast-item"

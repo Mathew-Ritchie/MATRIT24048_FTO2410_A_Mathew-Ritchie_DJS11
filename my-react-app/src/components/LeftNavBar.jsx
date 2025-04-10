@@ -1,20 +1,32 @@
 import React from "react";
 import "./LeftNavBar.css";
+import { NavLink } from "react-router";
 
 const LeftNavBar = ({ children, onButtonClick1, onButtonClick2 }) => {
+  const activeStyles = {
+    fontWeight: "bold",
+    textDecoration: "underline",
+    color: "white",
+    backgroundColor: "#495057",
+  };
+
   return (
     <nav className="left-nav-bar">
       {/* <div> */}
-      <button className="nav-button" onClick={onButtonClick1}>
-        Button 1
-      </button>
-      <button className="nav-button" onClick={onButtonClick2}>
-        Button 2
-      </button>
-      {/* </div> */}
-      {/* <div>
-        <audio controls src=""></audio>
-      </div> */}
+      <NavLink
+        to={"/"}
+        className="left-navbar-btn-link"
+        style={({ isActive }) => (isActive ? activeStyles : null)}
+      >
+        Home
+      </NavLink>
+      <NavLink
+        to={`/favourites`}
+        className="left-navbar-btn-link"
+        style={({ isActive }) => (isActive ? activeStyles : null)}
+      >
+        Favourites
+      </NavLink>
     </nav>
   );
 };

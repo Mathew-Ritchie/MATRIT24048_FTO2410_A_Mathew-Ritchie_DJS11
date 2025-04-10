@@ -40,18 +40,25 @@
   font-size: 16px;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  width: 200px;
 }
 
 .left-nav-bar .nav-button:hover {
   background-color: #3e8e41;
 }
-
-audio {
-  width: 600px;
-}
-
-@media (max-width: 600px) {
+/* 
+@media (max-width: 6rgb(94, 98, 94)) {
   .left-nav-bar {
     width: 150px;
   }
+} */
+
+.left-navbar-btn-link {
+  color: white;
+  background-color: #4caf50;
+  height: 40px;
+  text-align: center;
+  border-radius: 20px;
+  line-height: 40px;
+  text-decoration: none;
 }

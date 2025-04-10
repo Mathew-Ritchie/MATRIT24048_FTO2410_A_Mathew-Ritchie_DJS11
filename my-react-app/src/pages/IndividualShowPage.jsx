@@ -24,10 +24,13 @@ export default function IndividualShowPage() {
 
   return (
     <div className="individual-show-page">
-      {showData && ( // Conditionally render only if showData exists
+      {loading && <div className="status-circle">{<CircularProgress size="3rem" />}</div>}
+      {error && <p>Error loading podcasts: {error}</p>}
+      {showData && (
         <div>
           <h1>{showData.title}</h1>
-          <img src={showData.image} alt={showData.title} className="show-img-large" />
+
+          {/* <img src={showData.image} alt={showData.title} className="show-img-large" /> */}
           <p className="show-description">{showData.description}</p>
           <div>
             {showData.seasons.map((season) => (
