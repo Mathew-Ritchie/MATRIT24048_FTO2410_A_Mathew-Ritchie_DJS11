@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import React from "react";
-import usePodcastStore from "../customHooks/usePodcastStore";
+import usePodcastStore from "../../customHooks/usePodcastStore";
+import "../SortingHeader.css";
 
 export default function GenreDropDown() {
   const { GenreOption, setGenreOption, genreMap } = usePodcastStore();
@@ -11,7 +12,7 @@ export default function GenreDropDown() {
 
   return (
     <div>
-      <select id="genre" value={GenreOption} onChange={handleGenreChange}>
+      <select className="genre-dropbox" id="genre" value={GenreOption} onChange={handleGenreChange}>
         <option value="">All Genres</option>
         {Object.entries(genreMap).map(([genreId, genreName]) => (
           <option key={genreId} value={genreId}>

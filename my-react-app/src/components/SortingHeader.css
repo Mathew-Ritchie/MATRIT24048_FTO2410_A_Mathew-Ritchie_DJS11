@@ -1,0 +1,26 @@
+.show-nav {
+  background-color: blueviolet;
+  width: calc(100vw - 200px);
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  margin: 0;
+  height: 60px;
+  gap: 10px;
+  position: fixed;
+  left: 200px;
+  padding-right: 40px;
+}
+
+.genre-dropbox {
+  height: 30px;
+}
+
+.search-input {
+  height: 30px;
+  width: 350px;
+}
+
+.sorting-dropdown {
+  height: 30px;
+}

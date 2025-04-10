@@ -5,6 +5,7 @@ import { formatDate } from "../../../draft-work/modules/utils";
 import "./MainContent.css";
 import CircularProgress from "@mui/material/CircularProgress";
 import { Link } from "react-router";
+import SortingHeader from "../components/SortingHeader";
 
 export default function MainPodcastView() {
   const {
@@ -33,21 +34,28 @@ export default function MainPodcastView() {
     <main className="main-content">
       {loading && <div className="status-circle">{<CircularProgress size="3rem" />}</div>}
       {error && <p>Error loading podcasts: {error}</p>}
-      {podcastsToRender.map((show) => (
-        <Link key={show.id} to={`/show/${show.id}`}>
-          <div key={show.id} className="podcast-item" onClick={() => displayShowEpisodes(show.id)}>
-            <h2 className="show-title">{show.title}</h2>
-            <div className="show-info-wrapper">
-              <img src={show.image} alt={show.title} className="show-img" />
-              <div id="show-info-div" className="show-info-div">
-                <p>Season: {show.seasons}</p>
-                <p>Genres: {show.genreNames && show.genreNames.join(", ")}</p>
-                <p>Updated: {formatDate(show.updated)}</p>
+      <SortingHeader />
+      <div className="show-wrapper">
+        {podcastsToRender.map((show) => (
+          <Link key={show.id} to={`/show/${show.id}`}>
+            <div
+              key={show.id}
+              className="podcast-item"
+              onClick={() => displayShowEpisodes(show.id)}
+            >
+              <h2 className="show-title">{show.title}</h2>
+              <div className="show-info-wrapper">
+                <img src={show.image} alt={show.title} className="show-img" />
+                <div id="show-info-div" className="show-info-div">
+                  <p>Season: {show.seasons}</p>
+                  <p>Genres: {show.genreNames && show.genreNames.join(", ")}</p>
+                  <p>Updated: {formatDate(show.updated)}</p>
+                </div>
               </div>
             </div>
-          </div>
-        </Link>
-      ))}
+          </Link>
+        ))}
+      </div>
     </main>
   );
 }

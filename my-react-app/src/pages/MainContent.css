@@ -1,13 +1,22 @@
 .main-content {
   padding-top: 30px;
   margin: 50px 0px 0px 200px; /* Match header height */
-  padding: 20px;
+  padding: 0;
   width: auto;
   /* height: 100vh; */
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
   gap: 10px;
+}
+
+.show-wrapper {
+  width: auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding: 20px;
+  padding-top: 80px;
 }
 
 .podcast-item {

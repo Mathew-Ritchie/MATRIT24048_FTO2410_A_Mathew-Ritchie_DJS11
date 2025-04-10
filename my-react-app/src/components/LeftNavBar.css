@@ -7,6 +7,7 @@
   background-color: #f0f0f0;
   display: flex;
   flex-direction: column;
+  /* justify-content: space-between; */
   padding: 20px 0;
   box-sizing: border-box;
   border-right: 1px solid #ddd;
@@ -43,6 +44,10 @@
 
 .left-nav-bar .nav-button:hover {
   background-color: #3e8e41;
+}
+
+audio {
+  width: 600px;
 }
 
 @media (max-width: 600px) {
