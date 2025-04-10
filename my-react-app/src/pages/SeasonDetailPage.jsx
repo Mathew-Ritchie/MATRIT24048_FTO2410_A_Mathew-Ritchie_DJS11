@@ -8,11 +8,13 @@ import { useParams } from "react-router";
 import CircularProgress from "@mui/material/CircularProgress";
 import "./individualShowPage.css";
 import "./SeasonDetailPage.css";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import { AudioContext } from "../AudioContext/AudioContext";
 
 export default function SeasonDetailPage() {
   const { id, seasonNumber } = useParams();
   const { showData, loading, error } = usePodcastStore();
+  const { playAudio } = useContext(AudioContext);
 
   if (!showData || !showData.seasons) {
     return <p>Loading season details...</p>;
@@ -32,7 +34,7 @@ export default function SeasonDetailPage() {
             <div key={episode.title} className="episode">
               <div>
                 <img src={currentSeason.image} className="season-img" />
-                <button className="play-btn">
+                <button className="play-btn" onClick={() => playAudio(episode.file)}>
                   <FontAwesomeIcon icon={faCirclePlay} />
                 </button>
                 <li>
