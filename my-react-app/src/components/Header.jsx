@@ -6,9 +6,12 @@ const Header = ({ onHamburgerClick }) => {
     <header className="header">
       <h1>My Application</h1>
 
+      <audio controls></audio>
+
+      {/* 
       <button className="hamburger-button" id="hamburger">
         ☰
-      </button>
+      </button> */}
     </header>
   );
 };

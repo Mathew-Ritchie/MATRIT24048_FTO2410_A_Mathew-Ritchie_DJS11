@@ -1,0 +1,40 @@
+.season-img {
+  width: 50px;
+  height: 50px;
+}
+
+.episode-ol {
+  display: flex;
+  flex-direction: column;
+
+  gap: 10px;
+}
+
+.episode {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.episode > div {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  gap: 40px;
+}
+
+.favourites-btn {
+  border: 0;
+  background-color: transparent;
+  color: gold;
+  font-size: x-large;
+  cursor: pointer;
+}
+
+.play-btn {
+  border: 0;
+  background-color: transparent;
+  color: black;
+  font-size: x-large;
+  cursor: pointer;
+}

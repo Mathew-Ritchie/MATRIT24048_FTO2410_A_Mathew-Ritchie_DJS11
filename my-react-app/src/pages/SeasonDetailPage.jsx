@@ -1,8 +1,13 @@
 import React from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCirclePlay } from "@fortawesome/free-solid-svg-icons";
+import { FaStar } from "react-icons/fa";
+import { FaRegStar } from "react-icons/fa";
 import usePodcastStore from "../customHooks/usePodcastStore";
 import { useParams } from "react-router";
 import CircularProgress from "@mui/material/CircularProgress";
 import "./individualShowPage.css";
+import "./SeasonDetailPage.css";
 import { useState, useEffect } from "react";
 
 export default function SeasonDetailPage() {
@@ -22,14 +27,25 @@ export default function SeasonDetailPage() {
       {error && <p className="error-message">Error loading details: {error}</p>}
       <h2>Season {currentSeason.season} Episodes</h2>
       {currentSeason.episodes && (
-        <ul>
+        <ol className="episode-ol">
           {currentSeason.episodes.map((episode) => (
-            <li key={episode.title}>
-              <h3>{episode.title}</h3>
-              <p>{episode.description}</p>
-            </li>
+            <div key={episode.title} className="episode">
+              <div>
+                <img src={currentSeason.image} className="season-img" />
+                <button className="play-btn">
+                  <FontAwesomeIcon icon={faCirclePlay} />
+                </button>
+                <li>
+                  <h3>{episode.title}</h3>
+                  <p>{episode.description}</p>
+                </li>
+              </div>
+              <button className="favourites-btn">
+                <FaRegStar />
+              </button>
+            </div>
           ))}
-        </ul>
+        </ol>
       )}
     </div>
   );
