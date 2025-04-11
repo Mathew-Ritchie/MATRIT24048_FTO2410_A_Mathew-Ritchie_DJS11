@@ -54,12 +54,19 @@ export default function SeasonDetailPage() {
       (fav) =>
         fav.title === episode.title &&
         fav.file === episode.file &&
+        fav.img === currentSeason?.image &&
         fav.showTitle === showData?.title &&
         fav.season === currentSeason?.season
     );
   };
 
   const handleAddToFavourites = (episode) => {
+    const episodeWithShowAndSeason = {
+      ...episode,
+      showTitle: showData?.title,
+      season: currentSeason?.season,
+      img: currentSeason?.image,
+    };
     if (isFavourite(episode)) {
       setFavourites((prevFavourites) =>
         prevFavourites.filter(
@@ -67,6 +74,7 @@ export default function SeasonDetailPage() {
             !(
               fav.title === episode.title &&
               fav.file === episode.file &&
+              fav.img === currentSeason?.image &&
               fav.showTitle === showData?.title &&
               fav.season === currentSeason?.season
             )
