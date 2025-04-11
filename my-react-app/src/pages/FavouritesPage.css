@@ -1,3 +1,81 @@
-.favourites-div {
+.favourites-page {
+  padding-top: 30px;
   margin: 50px 0px 0px 200px;
+  padding: 20px;
+  width: calc(100vw - 200px);
+}
+
+/* .favourite-episode-outer-div {
+  display: flex;
+ 
+} */
+
+.favourite-episodes-list {
+  padding: 0;
+}
+
+.favourite-episode-inner-div {
+  display: grid;
+  grid-template-areas:
+    "img eps epstitle play ."
+    "img season showtitle fav .";
+
+  grid-template-columns: 70px 90px 50fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  align-items: center;
+  margin-bottom: 5px;
+  box-shadow: 2px 2px 6px 0px black;
+
+  /* display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-width: 400px;
+  max-width: 1200px;
+  gap: 10px; */
+}
+
+.favourites-img {
+  width: 50px;
+  height: 50px;
+  grid-area: img;
+}
+
+/* .favourites-li {
+  display: flex;
+  gap: 10px;
+  list-style: none;
+} */
+
+.favourites-eps-title {
+  grid-area: epstitle;
+  margin: 0;
+}
+
+.favourite-show-title {
+  grid-area: showtitle;
+  margin: 0;
+}
+
+.favourite-episode {
+  grid-area: eps;
+  margin: 0;
+}
+
+.favourite-season {
+  grid-area: season;
+  margin: 0;
+}
+
+.play-btn {
+  grid-area: play;
+  margin: 0;
+}
+
+.remove-favourite-btn {
+  border: none;
+  background-color: transparent;
+  color: gold;
+  font-size: x-large;
+  grid-area: fav;
+  margin: 0;
 }

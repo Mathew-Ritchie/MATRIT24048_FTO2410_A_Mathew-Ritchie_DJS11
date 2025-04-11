@@ -25,41 +25,38 @@ export const AudioProvider = ({ children }) => {
     };
   }, []);
 
-  const playAudio = (url) => {
-    if (url) {
+  useEffect(() => {
+    if (AudioUrl) {
       audioReference.current.pause();
+      audioReference.current.src = AudioUrl;
+      audioReference.current.load(); // Important to load the new source
 
-      const shouldPlayNewSource = AudioUrl !== url;
-
-      if (shouldPlayNewSource) {
-        audioReference.current.src = url;
-        setAudioUrl(url);
-
-        audioReference.current.addEventListener(
-          "loadeddata",
-          () => {
+      audioReference.current.addEventListener(
+        "loadeddata",
+        () => {
+          if (isPlaying) {
             audioReference.current.play().catch((error) => {
               console.error("Playback failed after loadeddata:", error);
               setIsPlaying(false);
             });
-            setIsPlaying(true);
-          },
-          { once: true }
-        );
-      } else {
-        audioReference.current.play().catch((error) => {
-          console.error("Playback failed (same URL):", error);
-          setIsPlaying(false);
-        });
-        setIsPlaying(true);
-      }
+          }
+        },
+        { once: true }
+      );
     } else {
       audioReference.current.pause();
+    }
+  }, [AudioUrl, isPlaying]);
+
+  const playAudio = (url) => {
+    if (url) {
+      setAudioUrl(url);
+      setIsPlaying(true);
+    } else {
       setAudioUrl(null);
       setIsPlaying(false);
     }
   };
-
   const pauseAudio = () => {
     audioReference.current.pause();
     setIsPlaying(false);
@@ -68,6 +65,15 @@ export const AudioProvider = ({ children }) => {
   return (
     <AudioContext.Provider value={{ AudioUrl, playAudio, pauseAudio, isPlaying }}>
       {children}
+      {AudioUrl && (
+        <audio
+          controls
+          ref={audioReference}
+          src={AudioUrl}
+          onPause={pauseAudio}
+          className="responsive-audio"
+        />
+      )}
     </AudioContext.Provider>
   );
 };
