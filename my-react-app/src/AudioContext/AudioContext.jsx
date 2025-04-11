@@ -12,7 +12,7 @@ export const AudioProvider = ({ children }) => {
     const handlePause = () => setIsPlaying(false);
     const handleEnded = () => setIsPlaying(false);
 
-    const currentAudio = audioReference.current; // Capture current ref
+    const currentAudio = audioReference.current;
 
     currentAudio.addEventListener("play", handlePlay);
     currentAudio.addEventListener("pause", handlePause);
@@ -27,7 +27,6 @@ export const AudioProvider = ({ children }) => {
 
   const playAudio = (url) => {
     if (url) {
-      // Pause the current audio immediately
       audioReference.current.pause();
 
       const shouldPlayNewSource = AudioUrl !== url;
@@ -36,7 +35,6 @@ export const AudioProvider = ({ children }) => {
         audioReference.current.src = url;
         setAudioUrl(url);
 
-        // Listen for the 'loadeddata' event before attempting to play
         audioReference.current.addEventListener(
           "loadeddata",
           () => {
@@ -47,12 +45,8 @@ export const AudioProvider = ({ children }) => {
             setIsPlaying(true);
           },
           { once: true }
-        ); // Ensure the listener runs only once
-
-        // In case 'loadeddata' doesn't fire quickly or at all
-        // You might want to add a timeout as a fallback (less ideal)
+        );
       } else {
-        // Same URL, just try to play again
         audioReference.current.play().catch((error) => {
           console.error("Playback failed (same URL):", error);
           setIsPlaying(false);

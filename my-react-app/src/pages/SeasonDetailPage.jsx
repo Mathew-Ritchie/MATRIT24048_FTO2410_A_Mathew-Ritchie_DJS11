@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCirclePlay } from "@fortawesome/free-solid-svg-icons";
-import { FaRegStar } from "react-icons/fa";
+import { FaRegStar, FaStar as FaSolidStar } from "react-icons/fa";
 import usePodcastStore from "../customHooks/usePodcastStore";
 import { useParams } from "react-router";
 import CircularProgress from "@mui/material/CircularProgress";
@@ -13,9 +13,31 @@ import { v4 as createId } from "uuid";
 
 export default function SeasonDetailPage() {
   const { id, seasonNumber } = useParams();
-  const { showData, loading, error, displayShowEpisodes } = usePodcastStore();
+  const { showData, loading, error, displayShowEpisodes, podcastData } = usePodcastStore();
   const { playAudio } = useContext(AudioContext);
   const [currentSeason, setCurrentSeason] = useState(null);
+  // const [podcastinfo, setPodcastinfo] = useState(null);
+  const [favourites, setFavourites] = useState(() => {
+    const storedFavourites = localStorage.getItem("favouriteEpisodes");
+    return storedFavourites ? JSON.parse(storedFavourites) : [];
+  });
+
+  console.log(currentSeason);
+  console.log(showData);
+
+  useEffect(() => {
+    localStorage.setItem("favouriteEpisodes", JSON.stringify(favourites));
+  }, [favourites]);
+
+  // useEffect(() => {
+  //   const fetchPodcastDetails = async () => {
+  //     const data = await podcastData(id);
+  //     if (data) {
+  //       setPodcastinfo(data);
+  //     }
+  //   };
+  //   fetchPodcastDetails();
+  // }, [id, podcastData]);
 
   useEffect(() => {
     const fetchShowDetails = async () => {
@@ -24,9 +46,36 @@ export default function SeasonDetailPage() {
         setCurrentSeason(data.seasons.find((season) => season.season === parseInt(seasonNumber)));
       }
     };
-
     fetchShowDetails();
   }, [id, seasonNumber, displayShowEpisodes]);
+
+  const isFavourite = (episode) => {
+    return favourites.some(
+      (fav) =>
+        fav.title === episode.title &&
+        fav.file === episode.file &&
+        fav.showTitle === showData?.title &&
+        fav.season === currentSeason?.season
+    );
+  };
+
+  const handleAddToFavourites = (episode) => {
+    if (isFavourite(episode)) {
+      setFavourites((prevFavourites) =>
+        prevFavourites.filter(
+          (fav) =>
+            !(
+              fav.title === episode.title &&
+              fav.file === episode.file &&
+              fav.showTitle === showData?.title &&
+              fav.season === currentSeason?.season
+            )
+        )
+      );
+    } else {
+      setFavourites((prevFavourites) => [...prevFavourites, episodeWithShowAndSeason]);
+    }
+  };
 
   if (loading) {
     return (
@@ -55,7 +104,7 @@ export default function SeasonDetailPage() {
   return (
     <div className="season-detail-page">
       <h2>Season {currentSeason.season} Episodes</h2>
-      {console.log(currentSeason)}
+      {/* {console.log(currentSeason)} */}
       {currentSeason.episodes && (
         <ol className="episode-ol">
           {currentSeason.episodes.map((episode) => (
@@ -72,20 +121,19 @@ export default function SeasonDetailPage() {
                   key={createId()}
                   className="play-btn"
                   onClick={() => {
-                    console.log("playAudio called with:", episode.file);
                     playAudio(episode.file);
                   }}
                 >
                   <FontAwesomeIcon icon={faCirclePlay} />
                 </button>
-                <audio controls src={episode.file}></audio>
+                {/* <audio controls src={episode.file}></audio> */}
                 <li>
                   <h3>{episode.title}</h3>
                   <p>{episode.description}</p>
                 </li>
               </div>
-              <button className="favourites-btn">
-                <FaRegStar />
+              <button className="favourites-btn" onClick={() => handleAddToFavourites(episode)}>
+                {isFavourite(episode) ? <FaSolidStar /> : <FaRegStar />}
               </button>
             </div>
           ))}
