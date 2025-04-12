@@ -10,7 +10,7 @@ import "./FavouritesPage.css";
 
 export default function FavouritesPage() {
   const [favouriteEpisodes, setFavouriteEpisodes] = useState([]);
-  const [sortOption, setSortOption] = useState("A-Z");
+  const [sortedFavourites, setSortedFavourites] = useState();
   const { playAudio } = useContext(AudioContext);
 
   //   useEffect(() => {
@@ -20,9 +20,16 @@ export default function FavouritesPage() {
   useEffect(() => {
     const storedFavourites = localStorage.getItem("favouriteEpisodes");
     if (storedFavourites) {
-      setFavouriteEpisodes(JSON.parse(storedFavourites));
+      const initialFavourites = JSON.parse(storedFavourites);
+      setFavouriteEpisodes(initialFavourites);
+      setSortedFavourites(initialFavourites);
     }
   }, []);
+
+  //recieve soirted eps from FavSortingDropDown
+  const handleSortChange = (sortedList) => {
+    setSortedFavourites(sortedList);
+  };
 
   //filtering and removing object from local storage
   const handleRemoveFavourite = (episodeToRemove) => {
@@ -39,56 +46,28 @@ export default function FavouritesPage() {
     );
 
     setFavouriteEpisodes(updateFavourites);
+    setSortedFavourites(updateFavourites);
     localStorage.setItem("favouriteEpisodes", JSON.stringify(updateFavourites));
   };
 
   //Sorting items on favourites page.
 
-  const sortFavourites = (episodes, option) => {
-    const copyEpisodes = [...episodes];
-
-    switch (option) {
-      case "A-Z":
-        return copyEpisodes.sort((a, b) => {
-          const titleA = a.showTitle ? a.showTitle.toLowerCase() : "";
-          const titleB = b.showTitle ? b.showTitle.toLowerCase() : "";
-          if (titleA < titleB) return -1;
-          if (titleA > titleB) return 1;
-          return 0; // if show titles are the same.
-        });
-      case "Z-A":
-        return copyEpisodes.sort((a, b) => {
-          const titleA = a.showTitle ? a.showTitle.toLowerCase() : "";
-          const titleB = b.showTitle ? b.showTitle.toLowerCase() : "";
-          if (titleA < titleB) return 1;
-          if (titleA > titleB) return -1;
-          // If show titles are the same, maintain original order
-          return 0;
-        });
-      case "Newest":
-        return copyEpisodes.sort((a, b) => new Date(b.addedAt) - new Date(a.addedAt));
-      case "Oldest":
-        return copyEpisodes.sort((a, b) => new Date(a.addedAt) - new Date(b.addedAt));
-      default:
-        return copyEpisodes;
-    }
-  };
-
-  const sortedFavourites = sortFavourites(favouriteEpisodes, sortOption);
-  useEffect(() => {
-    console.log("Sorted Favourites:", sortedFavourites);
-  }, [sortedFavourites]);
+  //   const sortedFavourites = sortFavourites(favouriteEpisodes, sortOption);
+  //   useEffect(() => {
+  //     console.log("Sorted Favourites:", sortedFavourites);
+  //   }, [sortedFavourites]);
 
   return (
     <div className="favourites-page">
       <div>
         <h2>My Favourite Episodes</h2>
-        <FavSortingDropDown setSortOption={setSortOption} />
+        <FavSortingDropDown episodes={favouriteEpisodes} onSortChange={handleSortChange} />
       </div>
       {favouriteEpisodes.length === 0 ? (
         <p>No favourite episodes yet.</p>
       ) : (
         <ol className="favourite-episodes-list">
+          {console.log("Value of sortedFavourites before map:", sortedFavourites)}
           {sortedFavourites.map((episode) => (
             <div key={episode.title} className="favourite-episode-outer-div">
               <div className="favourite-episode-inner-div">
