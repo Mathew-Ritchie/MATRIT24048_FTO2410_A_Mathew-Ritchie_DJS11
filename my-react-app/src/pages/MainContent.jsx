@@ -5,7 +5,7 @@ import { formatDate } from "../../../draft-work/modules/utils";
 import "./MainContent.css";
 import CircularProgress from "@mui/material/CircularProgress";
 import { Link } from "react-router";
-import SortingHeader from "../components/SortingHeader";
+import SortingHeader from "../components/MainSortingHeader";
 
 export default function MainPodcastView() {
   const {

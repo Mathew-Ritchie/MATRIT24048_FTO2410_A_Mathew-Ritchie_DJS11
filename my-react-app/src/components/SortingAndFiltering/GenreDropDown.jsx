@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import React from "react";
 import usePodcastStore from "../../customHooks/usePodcastStore";
-import "../SortingHeader.css";
+import "../MainSortingHeaders.css";
 
 export default function GenreDropDown() {
   const { GenreOption, setGenreOption, genreMap } = usePodcastStore();

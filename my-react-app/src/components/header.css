@@ -1,12 +1,13 @@
 .header {
   position: fixed; /* Fixed position */
+  z-index: 4;
   top: 0;
   left: 200px; /* Match navbar width */
-  height: 50px;
+  height: 60px;
   width: calc(100vw - 200px); /* Fill remaining space */
   background-color: #f8f8f8;
   display: flex;
-  justify-content: space-between;
+  /* justify-content: space-between; */
   align-items: center;
   padding: 0 15px;
   border-bottom: 1px solid #ddd; /*optional bottom border*/
@@ -25,10 +26,6 @@
   cursor: pointer;
 }
 
-/* responsive header width */
-@media (max-width: 600px) {
-  .header {
-    left: 150px;
-    width: calc(100vw - 150px);
-  }
-}
+/* .audio-container {
+  width: 600px;
+} */

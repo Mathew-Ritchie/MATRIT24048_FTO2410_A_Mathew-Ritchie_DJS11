@@ -50,24 +50,17 @@ export default function FavouritesPage() {
     localStorage.setItem("favouriteEpisodes", JSON.stringify(updateFavourites));
   };
 
-  //Sorting items on favourites page.
-
-  //   const sortedFavourites = sortFavourites(favouriteEpisodes, sortOption);
-  //   useEffect(() => {
-  //     console.log("Sorted Favourites:", sortedFavourites);
-  //   }, [sortedFavourites]);
-
   return (
     <div className="favourites-page">
-      <div>
-        <h2>My Favourite Episodes</h2>
+      <div className="title-sorting-container">
+        <h2 className="favourites-title">My Favourite Episodes</h2>
         <FavSortingDropDown episodes={favouriteEpisodes} onSortChange={handleSortChange} />
       </div>
       {favouriteEpisodes.length === 0 ? (
         <p>No favourite episodes yet.</p>
       ) : (
         <ol className="favourite-episodes-list">
-          {console.log("Value of sortedFavourites before map:", sortedFavourites)}
+          {/* {console.log("Value of sortedFavourites before map:", sortedFavourites)} */}
           {sortedFavourites.map((episode) => (
             <div key={episode.title} className="favourite-episode-outer-div">
               <div className="favourite-episode-inner-div">

@@ -12,7 +12,7 @@ import { useState, useEffect } from "react";
 import { v4 as createId } from "uuid";
 
 export default function SeasonDetailPage() {
-  const { id, seasonNumber } = useParams();
+  const { id: showId, seasonNumber } = useParams();
   const { showData, loading, error, displayShowEpisodes, podcastData } = usePodcastStore();
   const { playAudio } = useContext(AudioContext);
   const [currentSeason, setCurrentSeason] = useState(null);
@@ -22,8 +22,8 @@ export default function SeasonDetailPage() {
     return storedFavourites ? JSON.parse(storedFavourites) : [];
   });
 
-  console.log(currentSeason);
-  console.log(showData);
+  // console.log(currentSeason);
+  // console.log(showData);
 
   useEffect(() => {
     localStorage.setItem("favouriteEpisodes", JSON.stringify(favourites));
@@ -41,13 +41,13 @@ export default function SeasonDetailPage() {
 
   useEffect(() => {
     const fetchShowDetails = async () => {
-      const data = await displayShowEpisodes(id);
+      const data = await displayShowEpisodes(showId);
       if (data && data.seasons) {
         setCurrentSeason(data.seasons.find((season) => season.season === parseInt(seasonNumber)));
       }
     };
     fetchShowDetails();
-  }, [id, seasonNumber, displayShowEpisodes]);
+  }, [showId, seasonNumber, displayShowEpisodes]);
 
   const isFavourite = (episode) => {
     return favourites.some(
@@ -119,36 +119,40 @@ export default function SeasonDetailPage() {
       {/* {console.log(currentSeason)} */}
       {currentSeason.episodes && (
         <ol className="episode-ol">
-          {currentSeason.episodes.map((episode) => (
-            <div key={episode.title} className="episode">
-              <div>
-                {currentSeason.image && (
-                  <img
-                    src={currentSeason.image}
-                    className="season-img"
-                    alt={`Season ${currentSeason.season}`}
-                  />
-                )}
-                <button
-                  key={createId()}
-                  className="play-btn"
-                  onClick={() => {
-                    playAudio(episode.file);
-                  }}
-                >
-                  <FontAwesomeIcon icon={faCirclePlay} />
+          {currentSeason.episodes.map((episode) => {
+            const episodeWithId = { ...episode, uniqueId: createId() };
+            return (
+              <div key={episode.title} className="episode">
+                <div>
+                  {currentSeason.image && (
+                    <img
+                      src={currentSeason.image}
+                      className="season-img"
+                      alt={`Season ${currentSeason.season}`}
+                    />
+                  )}
+                  <button
+                    key={createId()}
+                    className="play-btn"
+                    onClick={() => {
+                      console.log("playAudio being called with:", episode.file, episodeWithId);
+                      playAudio(episode.file, episodeWithId);
+                    }}
+                  >
+                    <FontAwesomeIcon icon={faCirclePlay} />
+                  </button>
+                  {/* <audio controls src={episode.file}></audio> */}
+                  <li>
+                    <h3>{episode.title}</h3>
+                    <p>{episode.description}</p>
+                  </li>
+                </div>
+                <button className="favourites-btn" onClick={() => handleAddToFavourites(episode)}>
+                  {isFavourite(episode) ? <FaSolidStar /> : <FaRegStar />}
                 </button>
-                {/* <audio controls src={episode.file}></audio> */}
-                <li>
-                  <h3>{episode.title}</h3>
-                  <p>{episode.description}</p>
-                </li>
               </div>
-              <button className="favourites-btn" onClick={() => handleAddToFavourites(episode)}>
-                {isFavourite(episode) ? <FaSolidStar /> : <FaRegStar />}
-              </button>
-            </div>
-          ))}
+            );
+          })}
         </ol>
       )}
     </div>
