@@ -8,16 +8,13 @@ import { useContext } from "react";
 import FavSortingDropDown from "../components/SortingAndFiltering/FavouritesSorting";
 import "./FavouritesPage.css";
 import { ShowIdContext } from "../AudioContext/ShowIdContext";
+import { resetPlayCounts, removeAllFavourites } from "../utils/LocalStorage-utils";
 
 export default function FavouritesPage() {
   const [favouriteEpisodes, setFavouriteEpisodes] = useState([]);
   const [sortedFavourites, setSortedFavourites] = useState([]);
   const { playAudio } = useContext(AudioContext);
 
-  //   useEffect(() => {
-  //     console.log("Sort Option:", sortOption);
-  //   }, [sortOption]);
-  // Getting Favourites from localStoreage
   useEffect(() => {
     const storedFavourites = localStorage.getItem("favouriteEpisodes");
     if (storedFavourites) {
@@ -65,6 +62,15 @@ export default function FavouritesPage() {
     <div className="favourites-page">
       <div className="title-sorting-container">
         <h2 className="favourites-title">My Favourite Episodes</h2>
+        <button className="reset-play-counts-btn" onClick={resetPlayCounts}>
+          Reset Play Counts
+        </button>
+        <button
+          className="remove-all-favourites-btn"
+          onClick={() => removeAllFavourites(setFavouriteEpisodes, setSortedFavourites)}
+        >
+          Remove All Favourites
+        </button>
         <FavSortingDropDown episodes={favouriteEpisodes} onSortChange={handleSortChange} />
       </div>
       {favouriteEpisodes.length === 0 ? (
