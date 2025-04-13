@@ -9,37 +9,30 @@ import FavouritesPage from "./pages/FavouritesPage.jsx";
 import AudioProvider from "./AudioContext/AudioContext.jsx";
 import { ShowIdContext } from "./AudioContext/ShowIdContext.jsx";
 
-function App() {
-  return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route index element={<MainContent />} />
-          <Route
-            path="favourites"
-            element={
-              <AudioProvider>
-                <FavouritesPage />
-              </AudioProvider>
-            }
-          />
-          <Route path="show/:id" element={<ShowWithAudioProvider />}>
-            <Route path=":seasonNumber" element={<SeasonDetailPage />} />
-          </Route>
-        </Route>
-      </Routes>
-    </BrowserRouter>
-  );
-}
-
 function ShowWithAudioProvider() {
   const { id } = useParams();
   return (
     <ShowIdContext.Provider value={id}>
-      <AudioProvider>
-        <IndividualShowPage />
-      </AudioProvider>
+      <IndividualShowPage />
     </ShowIdContext.Provider>
+  );
+}
+
+function App() {
+  return (
+    <BrowserRouter>
+      <AudioProvider>
+        <Routes>
+          <Route path="/" element={<Layout />}>
+            <Route index element={<MainContent />} />
+            <Route path="favourites" element={<FavouritesPage />} />
+            <Route path="show/:id" element={<ShowWithAudioProvider />}>
+              <Route path=":seasonNumber" element={<SeasonDetailPage />} />
+            </Route>
+          </Route>
+        </Routes>
+      </AudioProvider>
+    </BrowserRouter>
   );
 }
 
