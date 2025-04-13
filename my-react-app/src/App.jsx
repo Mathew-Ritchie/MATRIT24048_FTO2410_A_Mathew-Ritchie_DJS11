@@ -18,11 +18,9 @@ function App() {
           <Route
             path="favourites"
             element={
-              <ShowIdContext.Provider value={null}>
-                <AudioProvider>
-                  <FavouritesPage />
-                </AudioProvider>
-              </ShowIdContext.Provider>
+              <AudioProvider>
+                <FavouritesPage />
+              </AudioProvider>
             }
           />
           <Route path="show/:id" element={<ShowWithAudioProvider />}>

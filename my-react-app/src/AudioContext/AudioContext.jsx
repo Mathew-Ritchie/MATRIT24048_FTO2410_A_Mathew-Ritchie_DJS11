@@ -1,6 +1,5 @@
 import React, { createContext, useState, useRef, useEffect } from "react";
 import "./AudioContext.css";
-import { v4 as createId } from "uuid";
 import { useShowId } from "./ShowIdContext"; // Ensure the path is correct
 
 export const AudioContext = createContext();
@@ -10,13 +9,19 @@ function AudioProvider({ children }) {
   const [isPlaying, setIsPlaying] = useState(false);
   const audioReference = useRef(new Audio());
   const [currentEpisodeData, setCurrentEpisodeData] = useState(null);
-  const showId = useShowId(); // Get showId from the context
+  const [currentShowId, setCurrentShowId] = useState(null);
   const [watchedTimeout, setWatchedTimeout] = useState(null);
+  const showIdFromContext = useShowId();
+  const showId = currentShowId || showIdFromContext;
   //   console.log(showId);
 
   useEffect(() => {
+    console.log("*** Event listener useEffect running ***");
+    console.log("AudioContext - showId from context (in useEffect):", showIdFromContext);
+    console.log("AudioContext - currentShowId (state):", currentShowId);
+    console.log("AudioContext - Effective showId:", showId);
     // console.log("*** Event listener useEffect running ***");
-    // console.log("showId from context:", showId); // Log the value from the context
+    // console.log("AudioContext - showId from context (in useEffect):", showId);
 
     const handlePlay = () => setIsPlaying(true);
     const handlePause = () => setIsPlaying(false);
@@ -32,6 +37,7 @@ function AudioProvider({ children }) {
       currentAudio.removeEventListener("play", handlePlay);
       currentAudio.removeEventListener("pause", handlePause);
       if (watchedTimeout) {
+        console.log("AudioContext - Clearing watchedTimeout in cleanup:", watchedTimeout);
         clearTimeout(watchedTimeout);
       }
       //   currentAudio.removeEventListener("ended", handleEnded);
@@ -39,6 +45,7 @@ function AudioProvider({ children }) {
   }, [AudioUrl, showId, currentEpisodeData]); // Depend on showId from context
 
   useEffect(() => {
+    console.log("AudioContext - Timeout useEffect running. showId:", showId);
     if (AudioUrl && audioReference.current) {
       const currentAudio = audioReference.current;
       const shouldPlay = isPlaying;
@@ -55,12 +62,23 @@ function AudioProvider({ children }) {
               setIsPlaying(false);
             });
             const timeoutId = setTimeout(() => {
-              if (currentEpisodeData?.uniqueId && showId) {
-                console.log("Timeout triggered, calling markPodcastAsWatched");
-                markPodcastAsWatched(showId, currentEpisodeData.uniqueId);
+              console.log(
+                "AudioContext - Timeout triggered - showId:",
+                showId,
+                "title:",
+                currentEpisodeData?.title
+              );
+              console.log("AudioContext - Value of showId before conditional:", showId);
+              if (currentEpisodeData?.title && showId) {
+                console.log(
+                  "AudioContext - Calling markPodcastAsWatched with:",
+                  showId,
+                  currentEpisodeData.title
+                );
+                markPodcastAsWatched(showId, currentEpisodeData.title);
               }
               setWatchedTimeout(null);
-            }, 40000);
+            }, 10000);
             setWatchedTimeout(timeoutId);
           } else if (watchedTimeout) {
             clearTimeout(watchedTimeout);
@@ -79,7 +97,7 @@ function AudioProvider({ children }) {
         setWatchedTimeout(null);
       }
     }
-  }, [AudioUrl, currentEpisodeData?.uniqueId, showId]);
+  }, [AudioUrl, showId, currentEpisodeData?.title]);
 
   useEffect(() => {
     if (AudioUrl && isPlaying && audioReference.current) {
@@ -90,15 +108,18 @@ function AudioProvider({ children }) {
     } else if (AudioUrl && !isPlaying && audioReference.current) {
       audioReference.current.pause();
     }
-  }, [isPlaying, AudioUrl]);
+  }, [AudioUrl, currentEpisodeData?.title, showId, isPlaying]);
 
   const playAudio = (url, episodeData) => {
+    console.log("AudioContext - playAudio called with URL:", url, "and Data:", episodeData);
     // Removed showId from arguments
     if (url) {
       setAudioUrl(url);
       setCurrentEpisodeData(episodeData);
       setIsPlaying(true);
-      console.log("playAudio called with episodeData:", episodeData);
+      console.log("AudioContext - isPlaying set to:", isPlaying);
+      setCurrentShowId(episodeData?.currentShowId);
+      console.log("AudioContext - currentShowId set to:", currentShowId);
     }
   };
 
@@ -106,32 +127,40 @@ function AudioProvider({ children }) {
     audioReference.current.pause();
     setIsPlaying(false);
     if (watchedTimeout) {
+      console.log("AudioContext - Clearing watchedTimeout in pauseAudio:", watchedTimeout);
       clearTimeout(watchedTimeout); // Clear timeout if paused
       setWatchedTimeout(null);
     }
   };
 
-  const markPodcastAsWatched = (showId, episodeUniqueId) => {
-    console.log("markPodcastAsWatched called (from timeout)", showId, episodeUniqueId);
+  const markPodcastAsWatched = (showId, episodeTitle) => {
+    console.log("Test inside markPodcastAsWatched");
+    console.log("markPodcastAsWatched called with:", showId, episodeTitle);
     const watchedKey = `watchedPodcasts`;
+    console.log("watchedKey:", watchedKey);
+
     const watchedData = localStorage.getItem(watchedKey);
+    console.log("watchedData from localStorage:", watchedData);
     let watched = watchedData ? JSON.parse(watchedData) : {};
 
-    const uniqueKey = `${showId}_${episodeUniqueId}`;
-
+    const uniqueKey = `${showId}_${episodeTitle}`;
+    console.log("uniqueKey:", uniqueKey);
     if (watched[uniqueKey]) {
       watched[uniqueKey] = {
         lastPlayed: new Date().toISOString(),
         playCount: watched[uniqueKey].playCount + 1,
       };
+      console.log("Updated watched entry:", watched[uniqueKey]);
     } else {
       watched[uniqueKey] = {
         lastPlayed: new Date().toISOString(),
         playCount: 1,
       };
+      console.log("Created new watched entry:", watched[uniqueKey]);
     }
 
     localStorage.setItem(watchedKey, JSON.stringify(watched));
+    console.log("localStorage updated:", localStorage.getItem(watchedKey));
   };
 
   return (

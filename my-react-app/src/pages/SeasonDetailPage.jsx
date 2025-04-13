@@ -60,7 +60,7 @@ export default function SeasonDetailPage() {
         fav.addedAt
     );
   };
-
+  // console.log(showId);
   const handleAddToFavourites = (episode) => {
     const now = new Date().toISOString();
     const episodeWithShowAndSeason = {
@@ -69,6 +69,7 @@ export default function SeasonDetailPage() {
       season: currentSeason?.season,
       img: currentSeason?.image,
       addedAt: now,
+      showId: showId,
     };
     if (isFavourite(episode)) {
       setFavourites((prevFavourites) =>
@@ -135,8 +136,13 @@ export default function SeasonDetailPage() {
                     key={createId()}
                     className="play-btn"
                     onClick={() => {
-                      console.log("playAudio being called with:", episode.file, episodeWithId);
-                      playAudio(episode.file, episodeWithId);
+                      console.log("playAudio being called with:", episode.file, {
+                        ...episodeWithId,
+                        currentShowId: showId,
+                      });
+                      console.log("SeasonDetailPage - showId when playing:", showId);
+
+                      playAudio(episode.file, { ...episodeWithId, currentShowId: showId });
                     }}
                   >
                     <FontAwesomeIcon icon={faCirclePlay} />
@@ -144,6 +150,7 @@ export default function SeasonDetailPage() {
                   {/* <audio controls src={episode.file}></audio> */}
                   <li>
                     <h3>{episode.title}</h3>
+                    {/* {console.log(episode)} */}
                     <p>{episode.description}</p>
                   </li>
                 </div>
