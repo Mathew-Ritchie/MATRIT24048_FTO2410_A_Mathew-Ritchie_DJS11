@@ -13,6 +13,7 @@ function AudioProvider({ children }) {
   const [watchedTimeout, setWatchedTimeout] = useState(null);
   const showIdFromContext = useShowId();
   const showId = currentShowId || showIdFromContext;
+  const [playTrigger, setPlayTrigger] = useState(0);
   //   console.log(showId);
 
   useEffect(() => {
@@ -97,7 +98,7 @@ function AudioProvider({ children }) {
         setWatchedTimeout(null);
       }
     }
-  }, [AudioUrl, showId, currentEpisodeData?.title]);
+  }, [AudioUrl, showId, currentEpisodeData?.title, playTrigger, isPlaying]);
 
   useEffect(() => {
     if (AudioUrl && isPlaying && audioReference.current) {
@@ -120,6 +121,7 @@ function AudioProvider({ children }) {
       console.log("AudioContext - isPlaying set to:", isPlaying);
       setCurrentShowId(episodeData?.currentShowId);
       console.log("AudioContext - currentShowId set to:", currentShowId);
+      setPlayTrigger((prev) => prev + 1);
     }
   };
 
