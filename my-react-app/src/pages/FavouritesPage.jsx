@@ -51,6 +51,16 @@ export default function FavouritesPage() {
     localStorage.setItem("favouriteEpisodes", JSON.stringify(updateFavourites));
   };
 
+  const getWatchedPlayCount = (episode) => {
+    const watchedData = localStorage.getItem("watchedPodcasts");
+    if (watchedData) {
+      const watched = JSON.parse(watchedData);
+      const uniqueKey = `${episode.showId}_${episode.title}`;
+      return watched[uniqueKey]?.playCount || 0;
+    }
+    return 0;
+  };
+
   return (
     <div className="favourites-page">
       <div className="title-sorting-container">
@@ -100,6 +110,7 @@ export default function FavouritesPage() {
                         })}
                       </p>
                     )}
+                    <p className="play-count">Plays: {getWatchedPlayCount(episode)}</p>
 
                     <button
                       className="play-btn"

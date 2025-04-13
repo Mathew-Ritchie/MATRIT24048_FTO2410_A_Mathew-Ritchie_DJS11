@@ -16,6 +16,7 @@ export default function SeasonDetailPage() {
   const { showData, loading, error, displayShowEpisodes, podcastData } = usePodcastStore();
   const { playAudio } = useContext(AudioContext);
   const [currentSeason, setCurrentSeason] = useState(null);
+  // const [, setPlayCountUpdated] = useState(0);
   // const [podcastinfo, setPodcastinfo] = useState(null);
   const [favourites, setFavourites] = useState(() => {
     const storedFavourites = localStorage.getItem("favouriteEpisodes");
@@ -24,6 +25,17 @@ export default function SeasonDetailPage() {
 
   // console.log(currentSeason);
   // console.log(showData);
+  // const handlePlayButtonClick = (episode) => {
+  //   const episodeWithId = { ...episode, uniqueId: createId() };
+  //   console.log("playAudio being called with:", episode.file, {
+  //     ...episodeWithId,
+  //     currentShowId: showId,
+  //   });
+  //   console.log("SeasonDetailPage - showId when playing:", showId);
+
+  //   playAudio(episode.file, { ...episodeWithId, currentShowId: showId });
+  //   setPlayCountUpdated((prev) => prev + 1); // Trigger re-render after playing
+  // };
 
   useEffect(() => {
     localStorage.setItem("favouriteEpisodes", JSON.stringify(favourites));
@@ -90,6 +102,16 @@ export default function SeasonDetailPage() {
     }
   };
 
+  const getWatchedPlayCount = (showId, episode) => {
+    const watchedData = localStorage.getItem("watchedPodcasts");
+    if (watchedData) {
+      const watched = JSON.parse(watchedData);
+      const uniqueKey = `${showId}_${episode.title}`;
+      return watched[uniqueKey]?.playCount || 0;
+    }
+    return 0;
+  };
+
   if (loading) {
     return (
       <div className="season-detail-page">
@@ -122,6 +144,7 @@ export default function SeasonDetailPage() {
         <ol className="episode-ol">
           {currentSeason.episodes.map((episode) => {
             const episodeWithId = { ...episode, uniqueId: createId() };
+            console.log("Episode in SeasonDetailPage:", episode);
             return (
               <div key={episode.title} className="episode">
                 <div>
@@ -135,15 +158,9 @@ export default function SeasonDetailPage() {
                   <button
                     key={createId()}
                     className="play-btn"
-                    onClick={() => {
-                      console.log("playAudio being called with:", episode.file, {
-                        ...episodeWithId,
-                        currentShowId: showId,
-                      });
-                      console.log("SeasonDetailPage - showId when playing:", showId);
-
-                      playAudio(episode.file, { ...episodeWithId, currentShowId: showId });
-                    }}
+                    onClick={() =>
+                      playAudio(episode.file, { ...episodeWithId, currentShowId: showId })
+                    }
                   >
                     <FontAwesomeIcon icon={faCirclePlay} />
                   </button>
@@ -154,6 +171,8 @@ export default function SeasonDetailPage() {
                     <p>{episode.description}</p>
                   </li>
                 </div>
+                <p className="play-count">Plays: {getWatchedPlayCount(showId, episode)}</p>
+
                 <button className="favourites-btn" onClick={() => handleAddToFavourites(episode)}>
                   {isFavourite(episode) ? <FaSolidStar /> : <FaRegStar />}
                 </button>
