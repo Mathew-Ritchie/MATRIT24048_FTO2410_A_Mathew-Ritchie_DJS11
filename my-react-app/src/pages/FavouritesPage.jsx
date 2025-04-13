@@ -8,7 +8,12 @@ import { useContext } from "react";
 import FavSortingDropDown from "../components/SortingAndFiltering/FavouritesSorting";
 import "./FavouritesPage.css";
 import { ShowIdContext } from "../AudioContext/ShowIdContext";
-import { resetPlayCounts, removeAllFavourites } from "../utils/LocalStorage-utils";
+import {
+  resetPlayCounts,
+  removeAllFavourites,
+  getWatchedPlayCount,
+  handleRemoveFavourite,
+} from "../utils/LocalStorage-utils";
 
 export default function FavouritesPage() {
   const [favouriteEpisodes, setFavouriteEpisodes] = useState([]);
@@ -27,35 +32,6 @@ export default function FavouritesPage() {
   //recieve soirted eps from FavSortingDropDown
   const handleSortChange = (sortedList) => {
     setSortedFavourites(sortedList);
-  };
-
-  //filtering and removing object from local storage
-  const handleRemoveFavourite = (episodeToRemove) => {
-    const updateFavourites = favouriteEpisodes.filter(
-      (fav) =>
-        !(
-          fav.title === episodeToRemove.title &&
-          fav.file === episodeToRemove.file &&
-          fav.img === episodeToRemove.img &&
-          fav.showTitle === episodeToRemove.showTitle &&
-          fav.season === episodeToRemove.season &&
-          fav.addedAt === episodeToRemove.addedAt
-        )
-    );
-
-    setFavouriteEpisodes(updateFavourites);
-    setSortedFavourites(updateFavourites);
-    localStorage.setItem("favouriteEpisodes", JSON.stringify(updateFavourites));
-  };
-
-  const getWatchedPlayCount = (episode) => {
-    const watchedData = localStorage.getItem("watchedPodcasts");
-    if (watchedData) {
-      const watched = JSON.parse(watchedData);
-      const uniqueKey = `${episode.showId}_${episode.title}`;
-      return watched[uniqueKey]?.playCount || 0;
-    }
-    return 0;
   };
 
   return (
@@ -128,7 +104,14 @@ export default function FavouritesPage() {
                     </button>
                     <button
                       className="remove-favourite-btn"
-                      onClick={() => handleRemoveFavourite(episode)}
+                      onClick={() =>
+                        handleRemoveFavourite(
+                          episode,
+                          favouriteEpisodes,
+                          setFavouriteEpisodes,
+                          setSortedFavourites
+                        )
+                      }
                     >
                       <FaSolidStar />
                     </button>
