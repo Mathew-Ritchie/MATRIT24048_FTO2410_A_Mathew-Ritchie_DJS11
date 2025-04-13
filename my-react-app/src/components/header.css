@@ -1,3 +1,11 @@
+:root {
+  --Dark-Grey: #3c4453;
+  --accent-Orange: #fd6900;
+  --medium-grey: #949396;
+  --medium-light-greay: #aba8b2;
+  --light-grey: #c3c3c3;
+}
+
 .header {
   position: fixed; /* Fixed position */
   z-index: 4;
@@ -5,18 +13,22 @@
   left: 200px; /* Match navbar width */
   height: 60px;
   width: calc(100vw - 200px); /* Fill remaining space */
-  background-color: #f8f8f8;
+  background-color: var(--Dark-Grey);
   display: flex;
   /* justify-content: space-between; */
   align-items: center;
   padding: 0 15px;
-  border-bottom: 1px solid #ddd; /*optional bottom border*/
+  /* border-bottom: 1px solid #ddd; optional bottom border */
   box-sizing: border-box; /* Include padding/border in width */
 }
 
 .header h1 {
   font-size: 18px;
   margin: 0;
+}
+
+.header-title {
+  color: var(--accent-Orange);
 }
 
 .header .hamburger-button {

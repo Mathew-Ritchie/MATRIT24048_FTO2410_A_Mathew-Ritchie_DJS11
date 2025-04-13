@@ -5,9 +5,9 @@ import { NavLink } from "react-router";
 const LeftNavBar = ({ children, onButtonClick1, onButtonClick2 }) => {
   const activeStyles = {
     fontWeight: "bold",
-    textDecoration: "underline",
+    textDecoration: "none",
     color: "white",
-    backgroundColor: "#495057",
+    backgroundColor: "var(--accent-Orange)",
   };
 
   return (
@@ -15,14 +15,14 @@ const LeftNavBar = ({ children, onButtonClick1, onButtonClick2 }) => {
       {/* <div> */}
       <NavLink
         to={"/"}
-        className="left-navbar-btn-link"
+        className="left-navbar-btn-link-home left-navbar-btn-link"
         style={({ isActive }) => (isActive ? activeStyles : null)}
       >
         Home
       </NavLink>
       <NavLink
         to={`/favourites`}
-        className="left-navbar-btn-link"
+        className="left-navbar-btn-link-favourites left-navbar-btn-link "
         style={({ isActive }) => (isActive ? activeStyles : null)}
       >
         Favourites

@@ -3,5 +3,7 @@
   z-index: 20;
   top: 0;
   right: 0;
-  width: 500px;
+  width: 300px;
+  background-color: var(--Dark-Grey);
+  margin: 2px;
 }

@@ -1,5 +1,5 @@
 .show-nav {
-  background-color: blueviolet;
+  background-color: var(--medium-light-greay);
   width: calc(100vw - 200px);
   display: flex;
   justify-content: end;
@@ -13,16 +13,19 @@
 }
 
 .genre-dropbox {
-  height: 30px;
+  height: 40px;
+  border-radius: 20px;
 }
 
 .search-input {
-  height: 30px;
+  height: 40px;
   width: 350px;
+  border-radius: 20px;
 }
 
 .sorting-dropdown {
-  height: 30px;
+  height: 40px;
+  border-radius: 20px;
 }
 
 .favourites-sorting-dropdown {

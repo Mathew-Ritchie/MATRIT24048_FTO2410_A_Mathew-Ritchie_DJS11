@@ -1,10 +1,10 @@
 import React, { useContext } from "react";
-import "./Header.css";
+import "./header.css";
 
 export default function Header() {
   return (
     <header className="header">
-      <h1>My Application</h1>
+      <h1 className="header-title">My Application</h1>
     </header>
   );
 }
