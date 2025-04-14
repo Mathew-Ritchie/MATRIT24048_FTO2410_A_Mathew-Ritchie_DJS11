@@ -4,27 +4,11 @@ import { useParams, NavLink, Outlet } from "react-router";
 import CircularProgress from "@mui/material/CircularProgress";
 import "./individualShowPage.css";
 import { useState, useEffect } from "react";
-import TextExpansion from "../components/TextExpansion/TextExpansion.jsx";
+import TextExpansion from "../utils/TextExpansion.jsx";
 
 export default function IndividualShowPage() {
   const { id } = useParams();
   const { showData, loading, error } = usePodcastStore();
-  // const { SelectedSeasonImage, setSelectedSeasonImage } = useState(null);
-
-  // const handleSeasonClick = (seasonNumber) => {
-  //   const selectedSeason = showData?.season?.find((season) => {
-  //     season.season === parseInt(seasonNumber);
-  //   });
-  //   if (selectedSeason && selectedSeason.image) {
-  //     setSelectedSeasonImage(selectedSeason.image);
-  //   } else {
-  //     setSelectedSeasonImage(null);
-  //   }
-  // };
-
-  // const displayImage = SelectedSeasonImage || showData?.image;
-
-  // console.log(showData);
 
   return (
     <div className="individual-show-page">
@@ -63,6 +47,23 @@ export default function IndividualShowPage() {
     </div>
   );
 }
+
+// const { SelectedSeasonImage, setSelectedSeasonImage } = useState(null);
+
+// const handleSeasonClick = (seasonNumber) => {
+//   const selectedSeason = showData?.season?.find((season) => {
+//     season.season === parseInt(seasonNumber);
+//   });
+//   if (selectedSeason && selectedSeason.image) {
+//     setSelectedSeasonImage(selectedSeason.image);
+//   } else {
+//     setSelectedSeasonImage(null);
+//   }
+// };
+
+// const displayImage = SelectedSeasonImage || showData?.image;
+
+// console.log(showData);
 
 // const [showDetails, setShowDetails] = useState(null);
 

@@ -7,10 +7,13 @@
 }
 
 .individual-show-page {
-  padding-top: 30px;
+  /* padding-top: 30px; */
   margin: 50px 0px 0px 200px;
-  padding: 20px;
-  width: auto;
+  padding: 20px 20px 20px 0;
+  background-color: var(--medium-light-greay);
+  width: calc(100vw - 200px);
+  height: auto;
+  border-bottom: 1px solid var(--Dark-Grey);
 }
 
 .Showpage-show-details-wrap {
@@ -19,6 +22,7 @@
   margin-bottom: 20px;
   margin-top: 20px;
   align-items: center;
+  padding-left: 20px;
 }
 
 .img-description-vid {
@@ -37,7 +41,12 @@
 
 .season-btn-div {
   display: flex;
+  flex-wrap: wrap;
   gap: 10px;
+  padding-left: 20px;
+  padding-bottom: 20px;
+
+  height: auto;
 }
 
 .season-btns {

@@ -10,6 +10,8 @@ import "./SeasonDetailPage.css";
 import { AudioContext } from "../AudioContext/AudioContext";
 import { useState, useEffect } from "react";
 import { v4 as createId } from "uuid";
+import TextExpansion from "../utils/TextExpansion";
+import { getWatchedPlayCount2Params } from "../utils/LocalStorage-utils";
 
 export default function SeasonDetailPage() {
   const { id: showId, seasonNumber } = useParams();
@@ -23,33 +25,9 @@ export default function SeasonDetailPage() {
     return storedFavourites ? JSON.parse(storedFavourites) : [];
   });
 
-  // console.log(currentSeason);
-  // console.log(showData);
-  // const handlePlayButtonClick = (episode) => {
-  //   const episodeWithId = { ...episode, uniqueId: createId() };
-  //   console.log("playAudio being called with:", episode.file, {
-  //     ...episodeWithId,
-  //     currentShowId: showId,
-  //   });
-  //   console.log("SeasonDetailPage - showId when playing:", showId);
-
-  //   playAudio(episode.file, { ...episodeWithId, currentShowId: showId });
-  //   setPlayCountUpdated((prev) => prev + 1); // Trigger re-render after playing
-  // };
-
   useEffect(() => {
     localStorage.setItem("favouriteEpisodes", JSON.stringify(favourites));
   }, [favourites]);
-
-  // useEffect(() => {
-  //   const fetchPodcastDetails = async () => {
-  //     const data = await podcastData(id);
-  //     if (data) {
-  //       setPodcastinfo(data);
-  //     }
-  //   };
-  //   fetchPodcastDetails();
-  // }, [id, podcastData]);
 
   useEffect(() => {
     const fetchShowDetails = async () => {
@@ -69,7 +47,8 @@ export default function SeasonDetailPage() {
         fav.img === currentSeason?.image &&
         fav.showTitle === showData?.title &&
         fav.season === currentSeason?.season &&
-        fav.addedAt
+        fav.addedAt &&
+        fav.showId === showId
     );
   };
   // console.log(showId);
@@ -84,50 +63,29 @@ export default function SeasonDetailPage() {
       showId: showId,
     };
     if (isFavourite(episode)) {
-      setFavourites((prevFavourites) =>
-        prevFavourites.filter(
+      // When removing, find the *specific* favorite instance
+      setFavourites((prevFavourites) => {
+        const indexToRemove = prevFavourites.findIndex(
           (fav) =>
-            !(
-              fav.title === episode.title &&
-              fav.file === episode.file &&
-              fav.img === currentSeason?.image &&
-              fav.showTitle === showData?.title &&
-              fav.season === currentSeason?.season &&
-              fav.addedAt === now
-            )
-        )
-      );
+            fav.title === episode.title &&
+            fav.file === episode.file &&
+            fav.img === currentSeason?.image &&
+            fav.showTitle === showData?.title &&
+            fav.season === currentSeason?.season &&
+            fav.showId === showId
+        );
+        if (indexToRemove > -1) {
+          const newFavourites = [...prevFavourites];
+          newFavourites.splice(indexToRemove, 1);
+          return newFavourites;
+        }
+        return prevFavourites; // Should not happen if isFavourite is true, but for safety
+      });
     } else {
       setFavourites((prevFavourites) => [...prevFavourites, episodeWithShowAndSeason]);
     }
   };
 
-  const getWatchedPlayCount = (showId, episode) => {
-    const watchedData = localStorage.getItem("watchedPodcasts");
-    if (watchedData) {
-      const watched = JSON.parse(watchedData);
-      const uniqueKey = `${showId}_${episode.title}`;
-      return watched[uniqueKey]?.playCount || 0;
-    }
-    return 0;
-  };
-
-  if (loading) {
-    return (
-      <div className="season-detail-page">
-        <div className="status-circle">
-          <CircularProgress size="3rem" />
-        </div>
-      </div>
-    );
-  }
-  if (error) {
-    return (
-      <div className="season-detail-page">
-        <p className="error-message">Error loading details: {error}</p>
-      </div>
-    );
-  }
   if (!currentSeason) {
     return (
       <div className="season-detail-page">
@@ -138,48 +96,68 @@ export default function SeasonDetailPage() {
 
   return (
     <div className="season-detail-page">
+      {loading && (
+        <div className="season-detail-page">
+          <div className="status-circle">
+            <CircularProgress size="3rem" />
+          </div>
+        </div>
+      )}
+      {error && (
+        <div className="season-detail-page">
+          <p className="error-message">Error loading details: {error}</p>
+        </div>
+      )}
+      {!currentSeason && (
+        <div className="season-detail-page">
+          <p>Loading season details...</p>
+        </div>
+      )}
+
       <h2>Season {currentSeason.season} Episodes</h2>
-      {/* {console.log(currentSeason)} */}
+
+      {/* Episode Card -------------------------------------------------------------------------------------------------------------------------------------------------- */}
       {currentSeason.episodes && (
-        <ol className="episode-ol">
+        <div className="norm-episode-wrapper">
           {currentSeason.episodes.map((episode) => {
             const episodeWithId = { ...episode, uniqueId: createId() };
             console.log("Episode in SeasonDetailPage:", episode);
             return (
-              <div key={episode.title} className="episode">
-                <div>
-                  {currentSeason.image && (
-                    <img
-                      src={currentSeason.image}
-                      className="season-img"
-                      alt={`Season ${currentSeason.season}`}
-                    />
-                  )}
-                  <button
-                    key={createId()}
-                    className="play-btn"
-                    onClick={() =>
-                      playAudio(episode.file, { ...episodeWithId, currentShowId: showId })
-                    }
-                  >
-                    <FontAwesomeIcon icon={faCirclePlay} />
-                  </button>
-                  {/* <audio controls src={episode.file}></audio> */}
-                  <li>
-                    <h3>{episode.title}</h3>
-                    {/* {console.log(episode)} */}
-                    <p>{episode.description}</p>
-                  </li>
-                </div>
-                <p className="play-count">Plays: {getWatchedPlayCount(showId, episode)}</p>
-
+              <div key={episode.title} className="norm-episode-card">
+                {currentSeason.image && (
+                  // img
+                  <img
+                    src={currentSeason.image}
+                    className="season-img"
+                    alt={`Season ${currentSeason.season}`}
+                  />
+                )}
+                {/* buttons */}
                 <button className="favourites-btn" onClick={() => handleAddToFavourites(episode)}>
                   {isFavourite(episode) ? <FaSolidStar /> : <FaRegStar />}
                 </button>
+                <button
+                  key={createId()}
+                  className="play-btn"
+                  onClick={() =>
+                    playAudio(episode.file, { ...episodeWithId, currentShowId: showId })
+                  }
+                >
+                  <FontAwesomeIcon icon={faCirclePlay} />
+                </button>
+                <p className="norm-episode-title">{episode.title}</p>
+                <div className="norm-episode-description-div">
+                  <TextExpansion text={episode.description} maxLength={50} />
+
+                  {/* <p className="norm-episode-description">{episode.description}</p> */}
+                </div>
+                <p className="norm-play-count">
+                  Plays: {getWatchedPlayCount2Params(showId, episode)}
+                </p>
               </div>
             );
           })}
-        </ol>
+        </div>
       )}
     </div>
   );

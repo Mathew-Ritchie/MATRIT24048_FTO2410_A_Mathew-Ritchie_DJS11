@@ -1,26 +1,39 @@
-.season-img {
-  width: 50px;
-  height: 50px;
+:root {
+  --Dark-Grey: #3c4453;
+  --accent-Orange: #fd6900;
+  --medium-grey: #949396;
+  --medium-light-greay: #aba8b2;
+  --light-grey: #c3c3c3;
 }
 
-.episode-ol {
+.season-detail-page {
+  background-color: var(--light-grey);
+  width: calc(100vw - 200px);
+  padding: 20px;
+}
+
+.norm-episode-wrapper {
   display: flex;
   flex-direction: column;
-
   gap: 10px;
 }
 
-.episode {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+.norm-episode-card {
+  display: grid;
+  grid-template-areas:
+    "img play title count"
+    "img fav  des des";
+
+  grid-template-columns: 50px 50px 1fr 100px;
+  grid-template-rows: 50px 1fr;
+  background-color: white;
+  padding: 0 20px 0 0;
 }
 
-.episode > div {
-  display: flex;
-  justify-content: start;
-  align-items: center;
-  gap: 40px;
+.season-img {
+  width: 50px;
+  height: 50px;
+  grid-area: img;
 }
 
 .favourites-btn {
@@ -29,6 +42,7 @@
   color: gold;
   font-size: x-large;
   cursor: pointer;
+  grid-area: fav;
 }
 
 .play-btn {
@@ -37,4 +51,19 @@
   color: black;
   font-size: x-large;
   cursor: pointer;
+  grid-area: play;
+}
+
+.norm-episode-title {
+  grid-area: title;
+}
+
+.norm-episode-description-div {
+  display: flex;
+  align-items: center;
+  grid-area: des;
+}
+
+.norm-play-count {
+  grid-area: count;
 }

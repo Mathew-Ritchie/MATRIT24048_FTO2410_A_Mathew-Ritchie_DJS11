@@ -18,16 +18,30 @@ export default function TextExpansion({ text, maxLength = 100 }) {
     setIsExpanded(!isExpanded);
   };
 
+  const readMoreStyle = {
+    border: "none",
+    backgroundColor: "transparent",
+    color: "var(--accent-Orange)",
+  };
+
   return (
     <p>
       {displayedText}
       {!isExpanded && (
-        <button onClick={toggleExpansion} className="read-more">
+        <button
+          onClick={toggleExpansion}
+          className="readmore-button read-more"
+          style={readMoreStyle}
+        >
           Read More
         </button>
       )}
       {isExpanded && (
-        <button onClick={toggleExpansion} className="read-less">
+        <button
+          onClick={toggleExpansion}
+          className="readmore-button read-less"
+          style={readMoreStyle}
+        >
           Read Less
         </button>
       )}
