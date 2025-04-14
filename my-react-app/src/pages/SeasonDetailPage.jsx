@@ -18,8 +18,7 @@ export default function SeasonDetailPage() {
   const { showData, loading, error, displayShowEpisodes, podcastData } = usePodcastStore();
   const { playAudio } = useContext(AudioContext);
   const [currentSeason, setCurrentSeason] = useState(null);
-  // const [, setPlayCountUpdated] = useState(0);
-  // const [podcastinfo, setPodcastinfo] = useState(null);
+
   const [favourites, setFavourites] = useState(() => {
     const storedFavourites = localStorage.getItem("favouriteEpisodes");
     return storedFavourites ? JSON.parse(storedFavourites) : [];
@@ -51,7 +50,7 @@ export default function SeasonDetailPage() {
         fav.showId === showId
     );
   };
-  // console.log(showId);
+
   const handleAddToFavourites = (episode) => {
     const now = new Date().toISOString();
     const episodeWithShowAndSeason = {
@@ -63,7 +62,6 @@ export default function SeasonDetailPage() {
       showId: showId,
     };
     if (isFavourite(episode)) {
-      // When removing, find the *specific* favorite instance
       setFavourites((prevFavourites) => {
         const indexToRemove = prevFavourites.findIndex(
           (fav) =>
@@ -79,7 +77,7 @@ export default function SeasonDetailPage() {
           newFavourites.splice(indexToRemove, 1);
           return newFavourites;
         }
-        return prevFavourites; // Should not happen if isFavourite is true, but for safety
+        return prevFavourites;
       });
     } else {
       setFavourites((prevFavourites) => [...prevFavourites, episodeWithShowAndSeason]);
@@ -148,8 +146,6 @@ export default function SeasonDetailPage() {
                 <p className="norm-episode-title">{episode.title}</p>
                 <div className="norm-episode-description-div">
                   <TextExpansion text={episode.description} maxLength={50} />
-
-                  {/* <p className="norm-episode-description">{episode.description}</p> */}
                 </div>
                 <p className="norm-play-count">
                   Plays: {getWatchedPlayCount2Params(showId, episode)}
