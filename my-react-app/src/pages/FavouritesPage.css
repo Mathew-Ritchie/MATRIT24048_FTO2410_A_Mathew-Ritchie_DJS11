@@ -38,7 +38,7 @@
   align-items: center;
   margin-bottom: 10px;
   box-shadow: 2px 2px 6px 0px black;
-  line-height: 50px;
+  line-height: 30px;
 
   /* display: flex;
   justify-content: space-between;
@@ -49,8 +49,8 @@
 }
 
 .favourites-img {
-  width: 50px;
-  height: 50px;
+  width: 30px;
+  height: 30px;
   grid-area: img;
 }
 
@@ -96,6 +96,11 @@
   padding-left: 10px;
 }
 
+.play-count {
+  grid-area: playcount;
+  height: 100%;
+}
+
 .play-btn {
   grid-area: play;
   margin: 0;
@@ -117,40 +122,40 @@
 @media screen and (min-width: 1920px) {
   .favourite-episode-inner-div {
     display: grid;
-    grid-template-areas: "img fav play eps  showtitle  epstitle added";
+    grid-template-areas: "img fav play eps  showtitle  epstitle playcount added";
 
-    grid-template-columns: 50px 50px 50px 90px 1fr 1fr 200px;
-    grid-template-rows: 1fr;
+    grid-template-columns: 30px 50px 50px 90px 1fr 1fr 80px 200px;
+    grid-template-rows: 30px;
   }
 }
 
 @media screen and (min-width: 1600px) {
   .favourite-episode-inner-div {
     display: grid;
-    grid-template-areas: "img fav play eps  showtitle  epstitle added";
+    grid-template-areas: "img fav play eps  showtitle  epstitle playcount added";
 
-    grid-template-columns: 50px 50px 50px 90px 1fr 10px 1fr 200px;
-    grid-template-rows: 1fr;
+    grid-template-columns: 30px 50px 50px 90px 1fr 10px 1fr 80px 200px;
+    grid-template-rows: 30px;
   }
 }
 
 @media screen and (min-width: 1300px) {
   .favourite-episode-inner-div {
     display: grid;
-    grid-template-areas: "img fav play eps  showtitle  epstitle added";
+    grid-template-areas: "img fav play eps  showtitle  epstitle playcount added";
 
-    grid-template-columns: 50px 50px 50px 90px 1fr 1fr 200px;
-    grid-template-rows: 1fr;
+    grid-template-columns: 30px 50px 50px 90px 1fr 1fr 80px 200px;
+    grid-template-rows: 30px;
   }
 }
 
 @media screen and (min-width: 800px) and (max-width: 1299px) {
   .favourite-episode-inner-div {
     display: grid;
-    grid-template-areas: "img fav play eps  showtitle  epstitle added";
+    grid-template-areas: "img fav play eps  showtitle  epstitle playcount added";
 
-    grid-template-columns: 50px 50px 50px 90px 1fr 1fr 250px;
-    grid-template-rows: 50px;
+    grid-template-columns: 30px 50px 50px 90px 1fr 1fr 80px 200px;
+    grid-template-rows: 30px;
   }
 }
 

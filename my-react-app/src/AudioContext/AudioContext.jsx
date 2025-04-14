@@ -165,6 +165,21 @@ function AudioProvider({ children }) {
     console.log("localStorage updated:", localStorage.getItem(watchedKey));
   };
 
+  useEffect(() => {
+    const handleBeforeclose = (event) => {
+      if (isPlaying && AudioUrl) {
+        event.preventDefault();
+        event.returnValue = "";
+        return "An episode is currently playing. Are you sure you would like to leave?";
+      }
+    };
+    window.addEventListener("beforeunload", handleBeforeclose);
+
+    return () => {
+      window.removeEventListener("beforeunload", handleBeforeclose);
+    };
+  }, [isPlaying, AudioUrl]);
+
   return (
     <AudioContext.Provider value={{ AudioUrl, playAudio, pauseAudio, isPlaying }}>
       {children}
