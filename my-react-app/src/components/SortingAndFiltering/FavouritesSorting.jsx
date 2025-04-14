@@ -1,5 +1,6 @@
 import React from "react";
 import "../MainSortingHeaders.css";
+import "../../pages/FavouritesPage.css";
 
 export default function FavSortingDropDown({ episodes, onSortChange }) {
   const handleSortChange = (event) => {

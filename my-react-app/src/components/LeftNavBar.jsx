@@ -1,6 +1,7 @@
 import React from "react";
 import "./LeftNavBar.css";
 import { NavLink } from "react-router";
+import logo from "../../src/logo.png";
 
 const LeftNavBar = ({ children, onButtonClick1, onButtonClick2 }) => {
   const activeStyles = {
@@ -12,7 +13,7 @@ const LeftNavBar = ({ children, onButtonClick1, onButtonClick2 }) => {
 
   return (
     <nav className="left-nav-bar">
-      {/* <div> */}
+      <img src={logo} className="navbar-logo" />
       <NavLink
         to={"/"}
         className="left-navbar-btn-link-home left-navbar-btn-link"

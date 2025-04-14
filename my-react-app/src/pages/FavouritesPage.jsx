@@ -36,24 +36,35 @@ export default function FavouritesPage() {
 
   return (
     <div className="favourites-page">
+      {/* sub header of favourites -------------------------------------------------------------------------------------------------------- */}
       <div className="title-sorting-container">
         <h2 className="favourites-title">My Favourite Episodes</h2>
-        <button className="reset-play-counts-btn" onClick={resetPlayCounts}>
-          Reset Play Counts
-        </button>
-        <button
-          className="remove-all-favourites-btn"
-          onClick={() => removeAllFavourites(setFavouriteEpisodes, setSortedFavourites)}
-        >
-          Remove All Favourites
-        </button>
-        <FavSortingDropDown episodes={favouriteEpisodes} onSortChange={handleSortChange} />
+        <div>
+          <button className="reset-play-counts-btn" onClick={resetPlayCounts}>
+            Reset Play Counts
+          </button>
+          <button
+            className="remove-all-favourites-btn"
+            onClick={() => removeAllFavourites(setFavouriteEpisodes, setSortedFavourites)}
+          >
+            Remove All Favourites
+          </button>
+          <FavSortingDropDown episodes={favouriteEpisodes} onSortChange={handleSortChange} />
+        </div>
       </div>
+
+      {/* message if there are no favourites -------------------------------------------------------------------------------------------------------- */}
       {favouriteEpisodes.length === 0 ? (
         <p>No favourite episodes yet.</p>
       ) : (
-        <ol className="favourite-episodes-list">
-          {/* {console.log("Value of sortedFavourites before map:", sortedFavourites)} */}
+        <div className="favourite-episodes-list">
+          <div className="title-grid-div">
+            <p className="eps-title-title">Eps. Title</p>
+            <p className="show-title-title">Show. Title</p>
+            <p className="play-count-title">Plays</p>
+            <p className="added-title">Added</p>
+          </div>
+          {/* If there are favourites, use map to return all favourite episodes -----------------------------------------------------------------------  */}
           {sortedFavourites.map((episode) => {
             console.log("FavouritesPage - Episode Show ID:", episode.showId);
             return (
@@ -82,7 +93,6 @@ export default function FavouritesPage() {
                     )}
                     {episode.addedAt && (
                       <p className="added-at">
-                        Added:{" "}
                         {new Date(episode.addedAt).toLocaleString(undefined, {
                           year: "2-digit",
                           month: "numeric",
@@ -92,7 +102,7 @@ export default function FavouritesPage() {
                         })}
                       </p>
                     )}
-                    <p className="play-count">Plays: {getWatchedPlayCount(episode)}</p>
+                    <p className="play-count">{getWatchedPlayCount(episode)}</p>
 
                     <button
                       className="play-btn"
@@ -120,7 +130,7 @@ export default function FavouritesPage() {
               </ShowIdContext.Provider>
             );
           })}
-        </ol>
+        </div>
       )}
     </div>
   );

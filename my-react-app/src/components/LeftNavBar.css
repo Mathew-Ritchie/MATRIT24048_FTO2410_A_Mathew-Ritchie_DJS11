@@ -15,10 +15,11 @@
   background-color: var(--medium-grey);
   display: flex;
   flex-direction: column;
+  align-items: center;
   /* justify-content: space-between; */
   padding: 20px 0;
   box-sizing: border-box;
-  /* border-right: 1px solid #ddd; */
+  border-right: 1px solid var(--Dark-Grey);
 }
 
 /* .left-nav-bar .nav-item {
@@ -65,10 +66,16 @@
   text-decoration: none;
 }
 
+.navbar-logo {
+  width: 100px;
+}
+
 .left-navbar-btn-link-home {
   margin-top: 50px;
+  width: 200px;
 }
 
 .left-navbar-btn-link-favourites {
   margin-top: 20px;
+  width: 200px;
 }
