@@ -11,7 +11,7 @@
   z-index: 4;
   top: 0;
   left: 200px; /* Match navbar width */
-  height: 60px;
+  height: 70px;
   width: calc(100vw - 200px); /* Fill remaining space */
   background-color: var(--Dark-Grey);
   display: flex;
@@ -43,3 +43,15 @@
 /* .audio-container {
   width: 600px;
 } */
+
+@media screen and (min-width: 0px) and (max-width: 375px) {
+  .header {
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    position: fixed; /* Fixed position */
+    z-index: 4;
+    top: 0;
+    left: 0;
+  }
+}

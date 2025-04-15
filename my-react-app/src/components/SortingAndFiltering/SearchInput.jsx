@@ -14,7 +14,7 @@ export default function SearchInput() {
       className="search-input"
       id="search-input"
       type="text"
-      placeholder="seach for show"
+      placeholder="Title Search"
       onChange={handleInputChange}
     />
   );
