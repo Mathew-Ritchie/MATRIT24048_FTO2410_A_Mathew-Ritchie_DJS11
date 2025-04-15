@@ -191,6 +191,23 @@ const usePodcastStore = create((set, get) => ({
   },
 
   /**
+   * Fetches the details for a single podcast show by its ID and updates the showData state.
+   * @param {string} showId - The ID of the show to fetch.
+   * @async
+   */
+  fetchShow: async (showId) => {
+    set({ loading: true, error: null, showData: null }); // Reset showData when fetching
+    try {
+      const res = await fetch(`https://podcast-api.netlify.app/id/${showId}`);
+      const data = await res.json();
+      set({ showData: data, loading: false });
+    } catch (error) {
+      console.error(`Error fetching show with ID ${showId}:`, error);
+      set({ error: "Failed to load show details.", loading: false, showData: null });
+    }
+  },
+
+  /**
    * fetches data relating to the specific podcast show.
    * @param {string} showId
    * @returns {Promise<object|null>}

@@ -1,11 +1,20 @@
-import React from "react";
-import { NavLink, Outlet } from "react-router";
+import React, { useEffect } from "react";
+import { NavLink, Outlet, useParams } from "react-router";
 import usePodcastStore from "../customHooks/usePodcastStore";
 import TextExpansion from "../utils/TextExpansion.jsx";
 import CircularProgress from "@mui/material/CircularProgress";
 import "./individual-show-page.css";
+
 export default function IndividualShowPage() {
-  const { showData, loading, error } = usePodcastStore();
+  const { showData, loading, error, fetchShow } = usePodcastStore();
+
+  const { id } = useParams();
+
+  useEffect(() => {
+    if (id) {
+      fetchShow(id);
+    }
+  }, [id, fetchShow]);
 
   return (
     <div className="individual-show-page">

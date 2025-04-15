@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { data, Link } from "react-router";
+import { Link } from "react-router";
 import usePodcastStore from "../customHooks/usePodcastStore";
 import SortingHeader from "../components/MainSortingHeader";
 import ShowCarousel from "../components/ShowCarousel";

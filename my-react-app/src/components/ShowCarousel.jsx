@@ -1,10 +1,13 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import "./show-carousel.css";
 
 export default function ShowCarousel({ shows, deviceType }) {
+  console.log("Shows prop received:", shows);
+
   const responsive = {
     xxldesktop: {
       breakpoint: { max: 3000, min: 1024 },
@@ -69,13 +72,19 @@ export default function ShowCarousel({ shows, deviceType }) {
       itemClass="carousel-item-padding-20-px"
     >
       {shows.map((show) => (
-        <div key={show.id} className="show-carousel-div">
-          <p className="carousel-show-title">{show.title}</p>
-          {console.log(show)}
-          {show.image && (
-            <img src={show.image} alt={show.title} style={{ maxWidth: "250px", height: "auto" }} />
-          )}
-        </div>
+        <Link to={`/show/${show.id}`} className="show-link">
+          <div key={show.id} className="show-carousel-div">
+            <p className="carousel-show-title">{show.title}</p>
+            {console.log(show)}
+            {show.image && (
+              <img
+                src={show.image}
+                alt={show.title}
+                style={{ maxWidth: "250px", height: "auto" }}
+              />
+            )}
+          </div>
+        </Link>
       ))}
     </Carousel>
   );
