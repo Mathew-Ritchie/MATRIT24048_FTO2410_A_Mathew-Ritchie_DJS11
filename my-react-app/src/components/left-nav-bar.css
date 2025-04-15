@@ -8,6 +8,7 @@
 
 .left-nav-bar {
   position: fixed;
+  z-index: 100;
   top: 0;
   left: 0;
   height: 100vh;
@@ -19,7 +20,8 @@
   /* justify-content: space-between; */
   padding: 20px 0;
   box-sizing: border-box;
-  border-right: 1px solid var(--Dark-Grey);
+  /* border-right: 1px solid var(--Dark-Grey); */
+  box-shadow: 2px 0px 6px 0px black;
 }
 
 /* .left-nav-bar .nav-item {

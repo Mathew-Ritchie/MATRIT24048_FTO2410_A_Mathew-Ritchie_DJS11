@@ -20,6 +20,8 @@
   padding: 0 15px;
   /* border-bottom: 1px solid #ddd; optional bottom border */
   box-sizing: border-box; /* Include padding/border in width */
+  border-bottom: 2px solid black;
+  box-shadow: 2px 2px 6px 0px black;
 }
 
 .header h1 {

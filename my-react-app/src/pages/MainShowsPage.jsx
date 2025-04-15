@@ -49,8 +49,8 @@ export default function MainShowsPage() {
     <main className="main-content">
       {loading && <div className="status-circle">{<CircularProgress size="3rem" />}</div>}
       {error && <p>Error loading podcasts: {error}</p>}
+      <div>{randomShows.length > 0 && <ShowCarousel shows={randomShows} />}</div>
       <SortingHeader />
-      {randomShows.length > 0 && <ShowCarousel shows={randomShows} />}
       <div className="show-wrapper">
         {podcastsToRender.map((show) => (
           <Link key={show.id} to={`/show/${show.id}`} className="show-link">

@@ -52,15 +52,16 @@ export default function ShowCarousel({ shows, deviceType }) {
     <Carousel
       swipeable={false}
       draggable={false}
-      showDots={true}
+      showDots={false}
       responsive={responsive}
       ssr={true} // means to render carousel on server-side.
       infinite={true}
       autoPlay={true}
       autoPlaySpeed={5000}
       keyBoardControl={true}
-      customTransition="all .1"
-      transitionDuration={3000}
+      customTransition="transform 10000ms ease"
+      partialVisible={true}
+      // transitionDuration={5000}
       containerClass="carousel-container"
       removeArrowOnDeviceType={["tablet", "stablet", "mobile"]}
       deviceType={deviceType}
@@ -69,7 +70,7 @@ export default function ShowCarousel({ shows, deviceType }) {
     >
       {shows.map((show) => (
         <div key={show.id} className="show-carousel-div">
-          <h3>{show.title}</h3>
+          <p className="carousel-show-title">{show.title}</p>
           {console.log(show)}
           {show.image && (
             <img src={show.image} alt={show.title} style={{ maxWidth: "250px", height: "auto" }} />

@@ -15,7 +15,7 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
-  gap: 10px;
+  /* gap: 10px; */
 }
 
 .show-wrapper {
@@ -24,12 +24,12 @@
   flex-wrap: wrap;
   gap: 20px;
   padding: 20px;
-  padding-top: 80px;
+  padding-top: 20px;
 }
 
 .podcast-item {
   width: 350px;
-  height: 180px;
+  height: 230px;
   display: flex;
   flex-direction: column;
   justify-content: start;
