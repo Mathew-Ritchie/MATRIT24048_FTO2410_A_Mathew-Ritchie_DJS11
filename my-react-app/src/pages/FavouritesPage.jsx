@@ -6,7 +6,7 @@ import { FaRegStar, FaStar as FaSolidStar } from "react-icons/fa";
 import { AudioContext } from "../AudioContext/AudioContext";
 import { useContext } from "react";
 import FavSortingDropDown from "../components/SortingAndFiltering/FavouritesSorting";
-import "./FavouritesPage.css";
+import "./favourites-page.css";
 import { ShowIdContext } from "../AudioContext/ShowIdContext";
 import {
   resetPlayCounts,

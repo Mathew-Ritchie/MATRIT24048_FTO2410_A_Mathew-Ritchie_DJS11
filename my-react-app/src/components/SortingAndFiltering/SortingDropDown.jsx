@@ -1,6 +1,6 @@
 import React from "react";
 import usePodcastStore from "../../customHooks/usePodcastStore";
-import "../MainSortingHeaders.css";
+import "../main-sorting-headers.css";
 
 export default function SortingDropDown() {
   const { setSortOption } = usePodcastStore();

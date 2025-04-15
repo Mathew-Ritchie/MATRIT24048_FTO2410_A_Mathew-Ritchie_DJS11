@@ -2,7 +2,7 @@ import React from "react";
 import usePodcastStore from "../customHooks/usePodcastStore";
 import { useParams, NavLink, Outlet } from "react-router";
 import CircularProgress from "@mui/material/CircularProgress";
-import "./individualShowPage.css";
+import "./individual-show-page.css";
 import { useState, useEffect } from "react";
 import TextExpansion from "../utils/TextExpansion.jsx";
 

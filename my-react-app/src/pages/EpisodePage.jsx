@@ -5,15 +5,15 @@ import { FaRegStar, FaStar as FaSolidStar } from "react-icons/fa";
 import usePodcastStore from "../customHooks/usePodcastStore";
 import { useParams } from "react-router";
 import CircularProgress from "@mui/material/CircularProgress";
-import "./individualShowPage.css";
-import "./SeasonDetailPage.css";
+import "./individual-show-page.css";
+import "./episode-page.css";
 import { AudioContext } from "../AudioContext/AudioContext";
 import { useState, useEffect } from "react";
 import { v4 as createId } from "uuid";
 import TextExpansion from "../utils/TextExpansion";
 import { getWatchedPlayCount2Params } from "../utils/LocalStorage-utils";
 
-export default function SeasonDetailPage() {
+export default function EpisodePage() {
   const { id: showId, seasonNumber } = useParams();
   const { showData, loading, error, displayShowEpisodes, podcastData } = usePodcastStore();
   const { playAudio } = useContext(AudioContext);

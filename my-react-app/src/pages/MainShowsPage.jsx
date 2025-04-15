@@ -2,12 +2,12 @@ import React from "react";
 import { useEffect, useState } from "react";
 import usePodcastStore from "../customHooks/usePodcastStore";
 import { formatDate } from "../../../draft-work/modules/utils";
-import "./MainContent.css";
+import "./main-shows-page.css";
 import CircularProgress from "@mui/material/CircularProgress";
 import { Link } from "react-router";
 import SortingHeader from "../components/MainSortingHeader";
 
-export default function MainPodcastView() {
+export default function MainShowsPage() {
   const {
     podcastData,
     loading,

@@ -1,13 +1,13 @@
 import React from "react";
 import { BrowserRouter, Routes, Route, useParams } from "react-router";
 import "./App.css";
-import Layout from "./components/Layout";
-import MainContent from "./pages/MainContent";
+import MainLayout from "./components/MainLayout.jsx";
 import IndividualShowPage from "./pages/IndividualShowPage.jsx";
-import SeasonDetailPage from "./pages/SeasonDetailPage.jsx";
 import FavouritesPage from "./pages/FavouritesPage.jsx";
 import AudioProvider from "./AudioContext/AudioContext.jsx";
 import { ShowIdContext } from "./AudioContext/ShowIdContext.jsx";
+import EpisodePage from "./pages/EpisodePage.jsx";
+import MainShowsPage from "./pages/MainShowsPage.jsx";
 
 function ShowWithAudioProvider() {
   const { id } = useParams();
@@ -23,11 +23,11 @@ function App() {
     <BrowserRouter>
       <AudioProvider>
         <Routes>
-          <Route path="/" element={<Layout />}>
-            <Route index element={<MainContent />} />
+          <Route path="/" element={<MainLayout />}>
+            <Route index element={<MainShowsPage />} />
             <Route path="favourites" element={<FavouritesPage />} />
             <Route path="show/:id" element={<ShowWithAudioProvider />}>
-              <Route path=":seasonNumber" element={<SeasonDetailPage />} />
+              <Route path=":seasonNumber" element={<EpisodePage />} />
             </Route>
           </Route>
         </Routes>
