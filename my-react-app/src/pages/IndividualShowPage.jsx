@@ -1,13 +1,10 @@
 import React from "react";
+import { NavLink, Outlet } from "react-router";
 import usePodcastStore from "../customHooks/usePodcastStore";
-import { useParams, NavLink, Outlet } from "react-router";
+import TextExpansion from "../utils/TextExpansion.jsx";
 import CircularProgress from "@mui/material/CircularProgress";
 import "./individual-show-page.css";
-import { useState, useEffect } from "react";
-import TextExpansion from "../utils/TextExpansion.jsx";
-
 export default function IndividualShowPage() {
-  const { id } = useParams();
   const { showData, loading, error } = usePodcastStore();
 
   return (
@@ -21,9 +18,6 @@ export default function IndividualShowPage() {
 
             <div>
               <h1>{showData.title}</h1>
-
-              {/* <img src={showData.image} alt={showData.title} className="show-img-large" /> */}
-              {/* <p className="show-description">{showData.description}</p> */}
               <TextExpansion text={showData.description} maxLength={200} />
             </div>
           </div>
@@ -33,11 +27,8 @@ export default function IndividualShowPage() {
                 className={({ isActive }) => (isActive ? "season-btns-active" : "season-btns")}
                 key={season.season}
                 to={`${season.season}`}
-                // style={({ isActive }) => (isActive ? activeStyles : null)}
-                // onClick={() => handleSeasonClick(season.season)}
               >
                 Season {season.season}
-                {/* <button className="season-btns">Season {season.season}</button> */}
               </NavLink>
             ))}
           </div>
@@ -47,36 +38,3 @@ export default function IndividualShowPage() {
     </div>
   );
 }
-
-// const { SelectedSeasonImage, setSelectedSeasonImage } = useState(null);
-
-// const handleSeasonClick = (seasonNumber) => {
-//   const selectedSeason = showData?.season?.find((season) => {
-//     season.season === parseInt(seasonNumber);
-//   });
-//   if (selectedSeason && selectedSeason.image) {
-//     setSelectedSeasonImage(selectedSeason.image);
-//   } else {
-//     setSelectedSeasonImage(null);
-//   }
-// };
-
-// const displayImage = SelectedSeasonImage || showData?.image;
-
-// console.log(showData);
-
-// const [showDetails, setShowDetails] = useState(null);
-
-// useEffect(() => {
-//   if (id) {
-//     displayShowEpisodes(id)
-//       .then((data) => {
-//         setShowDetails(data);
-//       })
-//       .catch((err) => {
-//         console.error("error fetching individual show data", err);
-//       });
-//   }
-// }, [id, displayShowEpisodes]);
-
-// console.log(showDetails);

@@ -1,0 +1,13 @@
+.carousel-container {
+  /* position: fixed; */
+  /* z-index: 10; */
+  padding: 20px;
+  padding-top: 60px;
+  width: calc(100vw - 200px);
+}
+
+.show-carousel-div {
+  /* position: fixed; */
+  z-index: 10;
+  width: calc(100vw - 200px);
+}

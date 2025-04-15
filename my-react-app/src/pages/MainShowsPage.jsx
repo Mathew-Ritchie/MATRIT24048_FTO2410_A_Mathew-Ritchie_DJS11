@@ -1,11 +1,12 @@
-import React from "react";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
+import { data, Link } from "react-router";
 import usePodcastStore from "../customHooks/usePodcastStore";
-import { formatDate } from "../../../draft-work/modules/utils";
-import "./main-shows-page.css";
-import CircularProgress from "@mui/material/CircularProgress";
-import { Link } from "react-router";
 import SortingHeader from "../components/MainSortingHeader";
+import ShowCarousel from "../components/ShowCarousel";
+import { formatDate } from "../../../draft-work/modules/utils";
+import CircularProgress from "@mui/material/CircularProgress";
+import "./main-shows-page.css";
+import { counter } from "@fortawesome/fontawesome-svg-core";
 
 export default function MainShowsPage() {
   const {
@@ -21,7 +22,9 @@ export default function MainShowsPage() {
   } = usePodcastStore();
 
   const [podcastsToRender, setPodcastsToRender] = useState([]);
+  const [randomShows, setRandomShows] = useState([]);
 
+  //Calls fetchPodcasts function to get Podcast data from API
   useEffect(() => {
     fetchPodcasts();
   }, [fetchPodcasts]);
@@ -30,11 +33,24 @@ export default function MainShowsPage() {
     getFilteredAndSortedPodcasts().then(setPodcastsToRender);
   }, [getFilteredAndSortedPodcasts, podcastData, GenreOption, searchInputValue, sortOption]);
 
+  // Carousel
+
+  useEffect(() => {
+    if (podcastData && podcastData.length > 0) {
+      const getRandomShow = (arr, count) => {
+        const shuffle = [...arr].sort(() => 0.5 - Math.random());
+        return shuffle.slice(0, count);
+      };
+      setRandomShows(getRandomShow(podcastData, 12));
+    }
+  }, [podcastData]);
+
   return (
     <main className="main-content">
       {loading && <div className="status-circle">{<CircularProgress size="3rem" />}</div>}
       {error && <p>Error loading podcasts: {error}</p>}
       <SortingHeader />
+      {randomShows.length > 0 && <ShowCarousel shows={randomShows} />}
       <div className="show-wrapper">
         {podcastsToRender.map((show) => (
           <Link key={show.id} to={`/show/${show.id}`} className="show-link">

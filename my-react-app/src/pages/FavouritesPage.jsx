@@ -1,19 +1,17 @@
-import React from "react";
-import { useEffect, useState } from "react";
-import { faCirclePlay } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { FaRegStar, FaStar as FaSolidStar } from "react-icons/fa";
+import React, { useContext, useState, useEffect } from "react";
 import { AudioContext } from "../AudioContext/AudioContext";
-import { useContext } from "react";
-import FavSortingDropDown from "../components/SortingAndFiltering/FavouritesSorting";
-import "./favourites-page.css";
 import { ShowIdContext } from "../AudioContext/ShowIdContext";
+import FavSortingDropDown from "../components/SortingAndFiltering/FavouritesSorting";
 import {
   resetPlayCounts,
   removeAllFavourites,
   getWatchedPlayCount,
   handleRemoveFavourite,
 } from "../utils/LocalStorage-utils";
+import { faCirclePlay } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { FaStar as FaSolidStar } from "react-icons/fa";
+import "./favourites-page.css";
 
 export default function FavouritesPage() {
   const [favouriteEpisodes, setFavouriteEpisodes] = useState([]);
