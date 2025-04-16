@@ -1,4 +1,5 @@
 import React, { useContext, useState, useEffect } from "react";
+import { Link } from "react-router";
 import { AudioContext } from "../AudioContext/AudioContext";
 import { ShowIdContext } from "../AudioContext/ShowIdContext";
 import FavSortingDropDown from "../components/SortingAndFiltering/FavouritesSorting";
@@ -8,9 +9,9 @@ import {
   getWatchedPlayCount,
   handleRemoveFavourite,
 } from "../utils/LocalStorage-utils";
-import { faCirclePlay } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 import { FaStar as FaSolidStar } from "react-icons/fa";
+import { FaRegPlayCircle } from "react-icons/fa";
 import "./favourites-page.css";
 
 export default function FavouritesPage() {
@@ -37,17 +38,23 @@ export default function FavouritesPage() {
       {/* sub header of favourites -------------------------------------------------------------------------------------------------------- */}
       <div className="title-sorting-container">
         <h2 className="favourites-title">My Favourite Episodes</h2>
-        <div>
-          <button className="reset-play-counts-btn" onClick={resetPlayCounts}>
-            Reset Play Counts
-          </button>
+
+        <div className="favourites-mobile-buttons">
+          <Link to={"/"} className="favourites-home-link">
+            <button className="favourites-home-btn">Home</button>
+          </Link>
+          <FavSortingDropDown episodes={favouriteEpisodes} onSortChange={handleSortChange} />
+
           <button
             className="remove-all-favourites-btn"
             onClick={() => removeAllFavourites(setFavouriteEpisodes, setSortedFavourites)}
           >
             Remove All Favourites
           </button>
-          <FavSortingDropDown episodes={favouriteEpisodes} onSortChange={handleSortChange} />
+
+          <button className="reset-play-counts-btn" onClick={resetPlayCounts}>
+            Reset Play Counts
+          </button>
         </div>
       </div>
 
@@ -62,6 +69,7 @@ export default function FavouritesPage() {
             <p className="play-count-title">Plays</p>
             <p className="added-title">Added</p>
           </div>
+
           {/* If there are favourites, use map to return all favourite episodes -----------------------------------------------------------------------  */}
           {sortedFavourites.map((episode) => {
             console.log("FavouritesPage - Episode Show ID:", episode.showId);
@@ -108,7 +116,7 @@ export default function FavouritesPage() {
                         playAudio(episode.file, { ...episode, currentShowId: episode.showId })
                       }
                     >
-                      <FontAwesomeIcon icon={faCirclePlay} />
+                      <FaRegPlayCircle className="play-btn" />
                     </button>
                     <button
                       className="remove-favourite-btn"

@@ -79,20 +79,15 @@
   align-items: start; */
 }
 
-@media screen and (min-width: 1900px) and (max-width: 3000px) {
-  .show-wrapper {
-    width: calc(100vw - 200px);
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-evenly;
-    gap: 10px;
-    padding: 20px;
-    padding-top: 20px;
+@media screen and (min-width: 1366px) and (max-width: 1370px) {
+  .show-img {
+    width: 90px;
+    height: 90px;
   }
-
   .podcast-item {
-    width: 400px;
-    height: 270px;
+    width: 300px;
+
+    height: 200px;
     display: flex;
     flex-direction: column;
     justify-content: start;
@@ -103,43 +98,17 @@
     box-shadow: 2px 2px 6px 0px black;
     color: black;
   }
-  .show-title {
-    margin: 0;
-    /* padding-top: 10px; */
-  }
-
-  .show-info-wrapper {
-    display: flex;
-    justify-content: center;
-    align-items: start;
-    gap: 10px;
-  }
-
-  .show-img {
-    width: 150px;
-    height: 150px;
-  }
-
-  .show-info-div > p {
-    margin-top: 5px;
-    margin-bottom: 0;
-  }
 }
 
-@media screen and (min-width: 1460px) and (max-width: 1900px) {
-  .show-wrapper {
-    width: calc(100vw - 200px);
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-evenly;
-    gap: 10px;
-    padding: 20px;
-    padding-top: 20px;
+@media screen and (min-width: 1024px) and (max-width: 1025px) {
+  .show-img {
+    width: 80px;
+    height: 80px;
   }
-
   .podcast-item {
-    width: 400px;
-    height: 270px;
+    width: 300px;
+
+    height: 200px;
     display: flex;
     flex-direction: column;
     justify-content: start;
@@ -150,13 +119,6 @@
     box-shadow: 2px 2px 6px 0px black;
     color: black;
   }
-  .show-img {
-    width: 150px;
-    height: 150px;
-  }
-}
-
-@media screen and (min-width: 1024px) and (max-width: 1459px) {
 }
 
 @media screen and (min-width: 0px) and (max-width: 376px) {

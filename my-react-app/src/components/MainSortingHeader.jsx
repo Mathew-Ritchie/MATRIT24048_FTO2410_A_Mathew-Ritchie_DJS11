@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router";
 import GenreDropDown from "./SortingAndFiltering/GenreDropDown";
 import SearchInput from "./SortingAndFiltering/SearchInput";
 import SortingDropDown from "./SortingAndFiltering/SortingDropDown";
@@ -26,9 +27,19 @@ export default function SortingHeader() {
           Close
         </button>
       </div>
-      <button className="open-sorting-button" id="hamburger" onClick={toggleModal}>
-        <HiAdjustmentsHorizontal />
-      </button>
+      <div className="inputs-wrapper-lg-screen">
+        <SearchInput />
+        <GenreDropDown />
+        <SortingDropDown />
+      </div>
+      <div className="mobile-button-wrapper">
+        <Link className="mobile-favourites-link">
+          <button className="mobile-favourites-button">Favoutires</button>
+        </Link>
+        <button className="open-sorting-button" id="hamburger" onClick={toggleModal}>
+          <HiAdjustmentsHorizontal />
+        </button>
+      </div>
     </nav>
   );
 }

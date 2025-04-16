@@ -59,7 +59,7 @@ export default function MainShowsPage() {
               className="podcast-item"
               onClick={() => displayShowEpisodes(show.id)}
             >
-              <h2 className="show-title">{show.title}</h2>
+              <h3 className="show-title">{show.title}</h3>
               <div className="show-info-wrapper">
                 <img src={show.image} alt={show.title} className="show-img" />
                 <div id="show-info-div" className="show-info-div">

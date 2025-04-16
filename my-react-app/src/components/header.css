@@ -44,7 +44,7 @@
   width: 600px;
 } */
 
-@media screen and (min-width: 0px) and (max-width: 375px) {
+@media screen and (min-width: 0px) and (max-width: 600px) {
   .header {
     width: 100%;
     padding: 0;
@@ -60,5 +60,11 @@
   }
   .header-logo-img {
     width: 50px;
+  }
+}
+
+@media screen and (min-width: 600px) {
+  .header-logo-img {
+    display: none;
   }
 }
