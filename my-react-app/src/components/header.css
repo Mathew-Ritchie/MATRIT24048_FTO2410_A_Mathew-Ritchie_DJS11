@@ -58,4 +58,7 @@
     font-size: 18px;
     margin: 0;
   }
+  .header-logo-img {
+    width: 50px;
+  }
 }
