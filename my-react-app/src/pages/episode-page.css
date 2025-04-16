@@ -7,9 +7,9 @@
 }
 
 .season-detail-page {
-  background-color: var(--light-grey);
   width: calc(100vw - 200px);
   padding: 20px;
+  margin: 3px;
 }
 
 .norm-episode-wrapper {
@@ -28,6 +28,9 @@
   grid-template-rows: 50px 1fr;
   background-color: white;
   padding: 0 20px 0 0;
+  background-color: var(--Dark-Grey);
+  color: white;
+  box-shadow: 2px 2px 6px 0px black;
 }
 
 .season-img {
@@ -66,4 +69,16 @@
 
 .norm-play-count {
   grid-area: count;
+}
+
+@media screen and (min-width: 0px) and (max-width: 600px) {
+  .season-detail-page {
+    width: 100vw;
+  }
+}
+
+@media screen and (min-width: 601px) and (max-width: 1023px) {
+  .season-detail-page {
+    width: 100vw;
+  }
 }
