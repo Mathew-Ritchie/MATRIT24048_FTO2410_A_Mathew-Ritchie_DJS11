@@ -11,15 +11,13 @@ export default function GenreDropDown() {
   };
 
   return (
-    <div>
-      <select className="genre-dropbox" id="genre" value={GenreOption} onChange={handleGenreChange}>
-        <option value="">All Genres</option>
-        {Object.entries(genreMap).map(([genreId, genreName]) => (
-          <option key={genreId} value={genreId}>
-            {genreName}
-          </option>
-        ))}
-      </select>
-    </div>
+    <select className="genre-dropbox" id="genre" value={GenreOption} onChange={handleGenreChange}>
+      <option value="">All Genres</option>
+      {Object.entries(genreMap).map(([genreId, genreName]) => (
+        <option key={genreId} value={genreId}>
+          {genreName}
+        </option>
+      ))}
+    </select>
   );
 }

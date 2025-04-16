@@ -9,9 +9,12 @@ import SortingModal from "./SortingAndFiltering/SortingModal";
 export default function SortingHeader() {
   return (
     <nav className="show-nav">
-      <SearchInput />
-      <GenreDropDown />
-      <SortingDropDown />
+      <div className="sorting-input-wrapper">
+        <SearchInput />
+        <GenreDropDown />
+        <SortingDropDown />
+        <button className="modal-close-button">Close</button>
+      </div>
       <button class="sorting-button" id="hamburger">
         <HiAdjustmentsHorizontal />
       </button>
