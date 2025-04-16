@@ -19,6 +19,9 @@ export default function FavouritesPage() {
   const [sortedFavourites, setSortedFavourites] = useState([]);
   const { playAudio } = useContext(AudioContext);
 
+  console.log(favouriteEpisodes);
+  console.log(sortedFavourites);
+
   useEffect(() => {
     const storedFavourites = localStorage.getItem("favouriteEpisodes");
     if (storedFavourites) {
