@@ -3,7 +3,7 @@ import { Link } from "react-router";
 import usePodcastStore from "../customHooks/usePodcastStore";
 import SortingHeader from "../components/MainSortingHeader";
 import ShowCarousel from "../components/ShowCarousel";
-import { formatDate } from "../../../draft-work/modules/utils";
+import formatDate from "../utils/utils.js";
 import CircularProgress from "@mui/material/CircularProgress";
 import "./main-shows-page.css";
 import { counter } from "@fortawesome/fontawesome-svg-core";
