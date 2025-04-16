@@ -33,7 +33,7 @@ export default function SortingHeader() {
         <SortingDropDown />
       </div>
       <div className="mobile-button-wrapper">
-        <Link className="mobile-favourites-link">
+        <Link to={`/favourites`} className="mobile-favourites-link">
           <button className="mobile-favourites-button">Favoutires</button>
         </Link>
         <button className="open-sorting-button" id="hamburger" onClick={toggleModal}>

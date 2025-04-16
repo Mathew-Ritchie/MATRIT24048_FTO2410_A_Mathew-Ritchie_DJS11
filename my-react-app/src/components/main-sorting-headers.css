@@ -81,9 +81,9 @@
   }
 }
 
-@media screen and (min-width: 0px) and (max-width: 376px) {
+@media screen and (min-width: 0px) and (max-width: 1023px) {
   .show-nav {
-    width: 375px;
+    width: 100vw;
   }
 
   .sorting-input-wrapper {
@@ -96,7 +96,7 @@
     gap: 10px;
     position: fixed;
     left: 11px;
-    width: 90%;
+    width: 100vw;
     height: 300px;
     top: 25%;
 

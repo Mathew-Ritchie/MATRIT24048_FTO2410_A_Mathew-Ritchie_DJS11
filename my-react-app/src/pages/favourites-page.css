@@ -61,7 +61,8 @@
 }
 
 .favourite-episodes-list {
-  padding: 20px 30px 20px 20px;
+  padding: 10px 30px 20px 20px;
+  margin-top: 10px;
   background-color: var(--light-grey);
 }
 
@@ -239,18 +240,18 @@
 @media screen and (min-width: 601px) and (max-width: 1023px) {
 }
 
-@media screen and (min-width: 600px) {
+@media screen and (min-width: 1023px) {
   .favourites-home-btn {
     display: none;
   }
 }
 
-@media screen and (min-width: 0px) and (max-width: 600px) {
+@media screen and (min-width: 0px) and (max-width: 800px) {
   .title-sorting-container {
-    width: 100%;
+    width: 100vw;
     margin-top: 115px;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     height: 80px;
     background-color: var(--medium-grey);
@@ -323,11 +324,71 @@
   .favourites-mobile-buttons {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-around;
+    justify-content: start;
     align-items: center;
     gap: 5px;
+    padding-left: 5px;
   }
   .favourites-sorting-dropdown {
     margin-right: 0;
+  }
+}
+
+@media screen and (min-width: 601px) and (max-width: 1023px) {
+  .favourites-page {
+    margin: 0px;
+    width: 100vw;
+  }
+
+  .title-sorting-container {
+    width: 100vw;
+  }
+
+  .favourites-sorting-dropdown {
+    margin-right: 0;
+  }
+  .favourites-mobile-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: start;
+    align-items: center;
+    gap: 5px;
+    padding-left: 5px;
+    padding-right: 20px;
+  }
+  .favourites-home-btn {
+    border-radius: 20px;
+    height: 30px;
+    background-color: var(--accent-Orange);
+    border: none;
+    margin-right: 5px;
+    /* border-bottom: 1px solid var(--Dark-Grey); */
+    width: 160px;
+    box-shadow: 2px 2px 6px 0px black;
+  }
+  .reset-play-counts-btn {
+    height: 30px;
+  }
+  .remove-all-favourites-btn {
+    height: 30px;
+  }
+  .favourites-sorting-dropdown {
+    height: 30px;
+  }
+}
+
+@media screen and (min-width: 801px) and (max-width: 975px) {
+  .favourites-title {
+    display: none;
+  }
+
+  .title-sorting-container {
+    justify-content: end;
+  }
+}
+
+@media screen and (min-width: 601px) and (max-width: 800px) {
+  .title-sorting-container {
+    margin-top: 70px;
   }
 }

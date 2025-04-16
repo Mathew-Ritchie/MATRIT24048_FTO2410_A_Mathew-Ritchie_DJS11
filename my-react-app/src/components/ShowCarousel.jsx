@@ -36,17 +36,17 @@ export default function ShowCarousel({ shows, deviceType }) {
     },
     ltablet: {
       breakpoint: { max: 1050, min: 1024 },
-      items: 4,
+      items: 5,
       slidesToSlide: 2,
     },
     tablet: {
       breakpoint: { max: 900, min: 464 },
-      items: 3,
+      items: 4,
       slidesToSlide: 2, // optional, default to 1.
     },
     stablet: {
       breakpoint: { max: 700, min: 464 },
-      items: 2,
+      items: 3,
       slidesToSlide: 1, // optional, default to 1.
     },
     mobile: {
