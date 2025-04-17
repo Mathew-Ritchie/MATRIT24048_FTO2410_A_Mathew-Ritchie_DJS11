@@ -13,8 +13,8 @@ import "./individual-show-page.css";
 import "./episode-page.css";
 
 export default function EpisodePage() {
+  const { showData, loading, error, displayShowEpisodes } = usePodcastStore();
   const { id: showId, seasonNumber } = useParams();
-  const { showData, loading, error, displayShowEpisodes, podcastData } = usePodcastStore();
   const { playAudio } = useContext(AudioContext);
   const [currentSeason, setCurrentSeason] = useState(null);
 
@@ -22,10 +22,6 @@ export default function EpisodePage() {
     const storedFavourites = localStorage.getItem("favouriteEpisodes");
     return storedFavourites ? JSON.parse(storedFavourites) : [];
   });
-
-  useEffect(() => {
-    localStorage.setItem("favouriteEpisodes", JSON.stringify(favourites));
-  }, [favourites]);
 
   useEffect(() => {
     const fetchShowDetails = async () => {
@@ -36,6 +32,10 @@ export default function EpisodePage() {
     };
     fetchShowDetails();
   }, [showId, seasonNumber, displayShowEpisodes]);
+
+  useEffect(() => {
+    localStorage.setItem("favouriteEpisodes", JSON.stringify(favourites));
+  }, [favourites]);
 
   const isFavourite = (episode) => {
     return favourites.some(

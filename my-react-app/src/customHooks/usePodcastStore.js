@@ -75,7 +75,6 @@ const usePodcastStore = create((set, get) => ({
     const uniqueGenreIds = new Set();
     podcastData.forEach((show) => {
       if (Array.isArray(show.genres)) {
-        // Add this check
         show.genres.forEach((genreId) => uniqueGenreIds.add(genreId));
       } else {
         console.warn(`Podcast with ID ${show.id} has invalid genres:`, show.genres);
@@ -101,12 +100,12 @@ const usePodcastStore = create((set, get) => ({
     );
   },
 
-  /**
-   * retrieves the name of the genre by its ID. it checks genreMap and fetches from the api if its not found.
-   * @async
-   * @param {number} genreId - the id of the genre
-   * @returns {Promise<string>}
-   */
+  // /**
+  //  * retrieves the name of the genre by its ID. it checks genreMap and fetches from the api if its not found.
+  //  * @async
+  //  * @param {number} genreId - the id of the genre
+  //  * @returns {Promise<string>}
+  //  */
   getGenre: async (genreId) => {
     if (get().genreMap[genreId]) {
       return get().genreMap[genreId];
