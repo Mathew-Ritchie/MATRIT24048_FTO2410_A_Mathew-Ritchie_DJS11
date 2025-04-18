@@ -135,7 +135,7 @@ const usePodcastStore = create((set, get) => ({
   setGenreOption: (option) => set({ GenreOption: option }),
   /**
    * sets input option
-   * @param {*} value
+   * @param {string} value
    */
   setSearchInputValue: (value) => set({ searchInputValue: value }),
 
@@ -150,7 +150,7 @@ const usePodcastStore = create((set, get) => ({
       if (get().GenreOption && get().GenreOption !== "") {
         const selectedGenreId = parseInt(get().GenreOption);
 
-        filteredData.forEach((show) => {});
+        // filteredData.forEach((show) => {});
 
         filteredData = filteredData.filter((show) => show.genres.includes(selectedGenreId));
       }
