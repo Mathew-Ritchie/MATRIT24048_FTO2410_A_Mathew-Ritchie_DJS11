@@ -69,7 +69,7 @@ export default function FavouritesPage() {
           <div className="title-grid-div">
             <p className="eps-title-title">Eps. Title</p>
             <p className="show-title-title">Show. Title</p>
-            <p className="play-count-title">Plays</p>
+            <p className="play-count-title">Play-count</p>
             <p className="added-title">Added</p>
           </div>
 
@@ -112,6 +112,7 @@ export default function FavouritesPage() {
                       </p>
                     )}
                     <p className="play-count">{getWatchedPlayCount(episode)}</p>
+                    <p className="play-count-title-card">Play-count:</p>
 
                     <button
                       className="play-btn"

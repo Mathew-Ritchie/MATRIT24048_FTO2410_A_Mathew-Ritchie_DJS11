@@ -153,7 +153,7 @@ export default function EpisodePage() {
                   <TextExpansion text={episode.description} maxLength={50} />
                 </div>
                 <p className="norm-play-count">
-                  Plays: {getWatchedPlayCount2Params(showId, episode)}
+                  Play-count: {getWatchedPlayCount2Params(showId, episode)}
                 </p>
               </div>
             );
