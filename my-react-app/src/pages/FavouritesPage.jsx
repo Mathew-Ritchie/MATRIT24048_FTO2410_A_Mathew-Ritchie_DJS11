@@ -19,8 +19,8 @@ export default function FavouritesPage() {
   const [sortedFavourites, setSortedFavourites] = useState([]);
   const { playAudio } = useContext(AudioContext);
 
-  console.log(favouriteEpisodes);
-  console.log(sortedFavourites);
+  // console.log(favouriteEpisodes);
+  // console.log(sortedFavourites);
 
   useEffect(() => {
     const storedFavourites = localStorage.getItem("favouriteEpisodes");
@@ -75,7 +75,7 @@ export default function FavouritesPage() {
 
           {/* If there are favourites, use map to return all favourite episodes -----------------------------------------------------------------------  */}
           {sortedFavourites.map((episode) => {
-            console.log("FavouritesPage - Episode Show ID:", episode.showId);
+            // console.log("FavouritesPage - Episode Show ID:", episode.showId);
             return (
               <ShowIdContext.Provider
                 key={`${episode.title}-${episode.file}`}

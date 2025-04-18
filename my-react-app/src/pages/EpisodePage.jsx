@@ -23,6 +23,7 @@ export default function EpisodePage() {
     return storedFavourites ? JSON.parse(storedFavourites) : [];
   });
 
+  // Geeting seasons data to display.
   useEffect(() => {
     const fetchShowDetails = async () => {
       const data = await displayShowEpisodes(showId);
@@ -123,7 +124,7 @@ export default function EpisodePage() {
         <div className="norm-episode-wrapper">
           {currentSeason.episodes.map((episode) => {
             const episodeWithId = { ...episode, uniqueId: createId() };
-            console.log("Episode in SeasonDetailPage:", episode);
+            // console.log("Episode in SeasonDetailPage:", episode);
             return (
               <div key={episode.title} className="norm-episode-card">
                 {currentSeason.image && (
