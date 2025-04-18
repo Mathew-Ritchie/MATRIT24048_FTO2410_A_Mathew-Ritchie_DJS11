@@ -2,6 +2,8 @@ MATRIT24028_FTO2410_A_Mathew_Ritchie_DJS11
 
 # Welcome to the-best-ever-podcast-web-app
 
+This project was designed and Created by Mathew Ritchie. I can be contacted by email at ritchmat89@gmail.com.
+
 ## 1.Deployment with Netlify
 
 The web app has been deployed to the internet through Netlify. To view it online you can follow the link:
